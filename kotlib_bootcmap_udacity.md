@@ -1,6 +1,4 @@
-# KotlinNotes
-
-## Bootcamp Kotlin para programadores
+# Bootcamp Kotlin para programadores
 
 ### Resource: https://www.udacity.com/course/kotlin-bootcamp-for-programmers--ud9011
 
