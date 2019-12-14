@@ -317,7 +317,7 @@ class B(): A() {
 
 Variáveis e metódos só estarão dispoiveis para a subclasse se forem definidos como `open`.
 
-### Interfaces e Classes abstratas
+#### Interfaces e Classes abstratas
 
 - Interfaces e classes abstratas não podem ser instanciadas diretamente
 - Classes abstratas possuem construtores, interfaces não
@@ -382,3 +382,38 @@ fun verifica(r: Response): Boolean {
     }
 }
 ```
+
+### Pares
+
+Pares são tipos de dados em kotlin que permitem um par genérico de valores.
+
+```kotlin
+val equipamento = "tesoura" to "cortar papel"
+
+println(equipamento.first) // tesoura
+println(equipamento.second) // cortar papel
+
+//Outra possibilidade
+val equipamento = ("tesoura" to "cotar papel") to ("de tamanho grande" to "e folha dupla")
+```
+
+Também é possível "destruir" um par e passar seus valores para variáveis distintas.
+
+```kotlin
+val equipamento = "tesoura" to "cortar papel"
+val (ferramenta, uso) = equipamento
+
+println(ferramenta) // tesoura
+println(uso) // cortar papel
+```
+
+Retorno de função.
+
+```kotlin
+fun giveMeATool(): Pair<String, String> {
+    return ("tesoura" to "cortar papel")
+}
+
+val (ferramenta, uso) = giveMeATool()
+```
+
