@@ -383,6 +383,8 @@ fun verifica(r: Response): Boolean {
 }
 ```
 
+<hr/>
+
 ### Pares
 
 Pares são tipos de dados em kotlin que permitem um par genérico de valores.
@@ -416,6 +418,8 @@ fun giveMeATool(): Pair<String, String> {
 
 val (ferramenta, uso) = giveMeATool()
 ```
+
+<hr/>
 
 ### Listas
 
@@ -480,3 +484,29 @@ println(curas.getDefault("água", "não conheço")) // Segundo elemento é a res
 
 curas.getOrElse("água") { "não conheço" }
 ```
+
+<hr/>
+
+### Constantes
+
+```kotlin
+val teste = 2
+const val testeReal = 3 
+```
+
+Se `val` representa um valor constate, qual a diferença de usar `const val`?
+
+O valor de `const val` é sempre determinado no momento da compilação. Já o valor de `val` pode ser determinado durante a execução do programa. Isso significa que não é possível atribuir o retorno de uma função como valor de `const val`.
+
+`Const val` não pode ser utilizado em qualquer classe. Apenas aquelas declaradas como `object`. Para utilizar uma constante em uma classe regular, é necessário adicionar um `companion object`.
+
+```kotlin
+class MinhaClasse {
+    companion object {
+        const val cor = "VERMELHO"
+    }
+}
+```
+
+`companioon object` são inicializados no contrutor da classe. Logo só são criados quando a classe é instânciada.
+
