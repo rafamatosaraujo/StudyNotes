@@ -199,13 +199,12 @@ O valor de um argumento padrão também pode ser uma função
 ```kotlin
 fun teste(a: Int = getInt()) { ... }
 ```
+
 É importante ressaltar que quanto maior for o custo de processar essa função, pior a performance do código.
 
 Dê uma olhada na bibiloteca de funções padrões do kotlin, há bons recursos disponíveis na linguagem. Além do `when`, `if/else`, etc., há funções como `repeat` por exemplo que podem facilitar o dia a dia.
 
-<hr/>
-
-### Filtros
+#### Filtros
 
 **OBS:** bem parecido com `ES6`
 
@@ -220,9 +219,7 @@ println(decora.filter { it[0] == 'p' })
 - 'p' -> caractere
 - "p" -> string
 
-<hr/>
-
-### Lambda
+#### Lambda
 
 Uma expressão que cria uma função.
 
@@ -230,9 +227,7 @@ Uma expressão que cria uma função.
 val teste = { arg: Int -> arg / 2 }
 ```
 
-<hr/>
-
-### High Order Functions
+#### High Order Functions
 
 Uma função que possui outra função como parâmetro. Lembrando que a função deve ser sempre o último argumento
 
@@ -480,7 +475,8 @@ val curas = mapOf("aspirina" to "qualquer doença", "salompas" to "dores muscula
 println(curas.get("aspirina"))
 println(curas["aspirina"])
 
-println(curas.getDefault("água", "não conheço")) // Segundo elemento é a resposta padrão para quando o elemento procurado não é encontrado
+println(curas.getDefault("água", "não conheço"))
+// Segundo elemento é a resposta padrão para quando o elemento procurado não é encontrado
 
 curas.getOrElse("água") { "não conheço" }
 ```
@@ -491,7 +487,7 @@ curas.getOrElse("água") { "não conheço" }
 
 ```kotlin
 val teste = 2
-const val testeReal = 3 
+const val testeReal = 3
 ```
 
 Se `val` representa um valor constate, qual a diferença de usar `const val`?
