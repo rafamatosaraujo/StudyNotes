@@ -7,6 +7,7 @@
 `Boxing` -> Tipos primitivos no kotlin são "encapsulados" em "objetos", portanto é possível chamar métodos diretamente de um tipo primitivo.
 
 #### Exemplo
+
 ```kotlin
 // Caminho longo
 var number: Int = 1
@@ -15,6 +16,7 @@ number.toLong()
 // Caminho curto
 1.toLong()
 ```` 
+
 <hr/>
 
 ### Definindo variáveis
@@ -25,11 +27,13 @@ number.toLong()
 ### Definindo null como valor de variável
 
 Se o tipo da variável for explicitamente definido, não é possível passar `null` como valor.
+
 ```kotlin
 var number: Int = null //Não funciona
 ```
 
 Nesse caso é necessário garantir que a variável possa receber `null` como valor de forma explicita, utilizando a interrogação no final da tipagem.
+
 ```kotlin
 var number: Int? = null //Funciona
 ```
@@ -37,6 +41,7 @@ var number: Int? = null //Funciona
 Ao acionar um método em uma varíavel que pode receber `null` como resultado, pode se utilizar uma sintaxe especial (elvis operator) para fazer a varificação do valor.
 
 #### Exemplo
+
 ```kotlin
 // Utilizando if
 val l: Int = if (b != null) b.length else -1
@@ -44,6 +49,7 @@ val l: Int = if (b != null) b.length else -1
 // Utilizando elvis operator
 val l = b?.length ?: -1
 ```
+
 Em ambos os casos o resultado será o mesmo. Se o valor da variável `b` for `null`, a variável `l` assumirá -1 como valor, caso contrário `b.length`.
 
 <hr/>
@@ -57,11 +63,13 @@ val b = "kotlin"
 return "$a está escrevendo sobre $b"
 // Rafael está escrevendo sobre kotlin
 ```
+
 <hr/>
 
 ### Condicionais
 
 #### if
+
 ```kotlin
 val number = 50
 if (number in 1..100) return true
@@ -69,6 +77,7 @@ if (number in 1..100) return true
 ```
 
 ### when
+
 ```kotlin
 val number = 50
 when(number) {
@@ -78,26 +87,32 @@ when(number) {
 }
 // meio cheio
 ```
+
 <hr/>
 
 ### Arrays
 
 - Se um array é definido como `val` não é possível redefiní-lo novamente, mas é possível manipulá-lo através de seus métodos.
 - Ao definir um array de inteiros com `intArrayOf()` só é possível adicionar inteiros no array, porém se o tipo não é explicito (`arrayOf()`), é possível misturar os tipos.
+
 ```kotlin
 var array = Array(5) { it * 2 }
 // [0, 2, 3, 6, 8]
 ```
+
 <hr/>
 
 ### Loops
+
 ```kotlin
 //#1
 for (element in array) { ... }
 //#2
 for ((index, element) in array.withIndex) { ... }
 ```
+
 ### Loops com ranges
+
 ```kotlin
 //#1
 for (i in 'b'..'g') { ... }
@@ -108,6 +123,7 @@ for (i in 5 downTo 1) { ... }
 //#4
 for (i in 3..6 step 2) { ... }
 ```
+
 <hr/>
 
 ### Funções
@@ -125,6 +141,7 @@ Tudo em kotlin é uma expressão, sendo possível definir o valor de uma variáv
 ```kotlin
 val isHot = if (temp > 50) true else false
 ```
+
 #### Sintaxe com rentorno explicito
 
 ```kotlin
@@ -199,6 +216,7 @@ println(decora.filter { it[0] == 'p' })
 ```
 
 **OBS:** em kotlin, aspas simples signifcam `caractere`enquanto aspas duplas significam `string`
+
 - 'p' -> caractere
 - "p" -> string
 
@@ -211,6 +229,7 @@ Uma expressão que cria uma função.
 ```kotlin
 val teste = { arg: Int -> arg / 2 }
 ```
+
 <hr/>
 
 ### High Order Functions
@@ -230,6 +249,7 @@ val valor = teste(10, { 10 -> 10 + 2 })
 ### Orientação a objetos com kotlin
 
 Criando classes
+
 ```kotlin
 class MinhaClasse { ... }
 
@@ -238,11 +258,13 @@ class MinhaClasse(val a: Boolean = true) { ... }
 ```
 
 Não é necessário usar o `new` para instanciar uma classe
+
 ```kotlin
 val teste = MinhaClasse()
 ```
 
 É possível criar getters e setters de forma bem rapida apenas definindo os métodos abaixo da declaração da variavel.
+
 ```kotlin
 val area: Int
     get() = altura * largura
@@ -253,6 +275,7 @@ val area: Int
 ```
 
 #### Visibilidade
+
 - `public`-> Padrão
 - `private` -> Apenas arquivo
 - `internal` -> Apenas módulo
@@ -262,7 +285,7 @@ Além de ser possível inicializar variáveis diretamente no construtor, é poss
 ```kotlin
 class Peixe(val grande: Boolean = true, volume: Int) {
     val size: Int
-    
+
     init {
         if (a) size = volume
         else size = volume *2
@@ -291,6 +314,7 @@ class B(): A() {
     override count = b * 3
 }
 ```
+
 Variáveis e metódos só estarão dispoiveis para a subclasse se forem definidos como `open`.
 
 ### Interfaces e Classes abstratas
@@ -334,12 +358,15 @@ object MeuSingleton { ... }
 ```
 
 #### Enum
+
 ``` kotlin
 enum class Color(val rgb: Int) {
     RED("0xFF0000")
 }
 ```
+
 #### Classes seladas
+
 Pode conter subclasses, porém somente no mesmo arquivo em que ela for declarada. Normalmente são utilizadas para retornar o sucesso ou erro de uma API.
 
 ```kotlin
