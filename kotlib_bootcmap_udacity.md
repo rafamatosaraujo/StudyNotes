@@ -529,3 +529,36 @@ fun Cachorro.isBlack() = cor == "PRETO"
 
 fun Cachorro.isPuddle() = raca == "PUDDLE" // Não funciona
 ```
+
+<hr/>
+
+### Classes genéricas
+
+Utiliza-se classes genéricas quando é necessário criar uma classe que aceite qualquer tipo de objetio como parâmetros.
+
+```kotlin
+class MyList<T> {
+    fun get(pos: Int): T { ... }
+    fun addItem(item: T) { ... }
+}
+
+val intList: MyList<Int>
+val stringList: MyLisy<String>
+```
+
+`T` representa um tipo genérico e pode ser `null`. Para evitar que  `T` seja nulo, é importante definí-lo como o tipo `Any`.
+
+```kotlin
+class MyList<T: Any> {
+    fun get(pos: Int): T { ... }
+    fun addItem(item: T) { ... }
+}
+```
+
+Ao usar o `Any` garante-se que a classe seja o mais genérico possível. Caso queira que a classe seja mais específica. Apenas defina o tipo de `T` como a classe que deseja.
+
+```kotlin
+open class AguaDeAquario(var precisaDeNutrientes: Boolean)
+
+class Aquario<T: AguaDeAquario> { ... }
+```
