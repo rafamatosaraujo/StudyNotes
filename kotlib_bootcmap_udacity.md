@@ -506,3 +506,26 @@ class MinhaClasse {
 
 `companioon object` são inicializados no contrutor da classe. Logo só são criados quando a classe é instânciada.
 
+<hr/>
+
+### Funções de extensão
+
+Sbustituem as famosas funções criadas como `util`. Permitem adicionar funções à uma classe existente sem ter acesso ao código fonte.
+
+```kotlin
+fun String.hasSpaces() = find { it == ' ' } != null
+
+"Existe um espaço nessa string?".hasSpaces() // true
+```
+
+É interessante utilizar as funções de extensão para separar métodos que geralmente seriam `helper` dos métodos que realmente fazem parte da API principal de uma classe.
+
+É importante notar que as funções de extensão, por serem definidas fora da classe, não têm acesso às variáveis privadas.
+
+```kotlin
+class Cachorro(val cor: String, private val raca: String)
+
+fun Cachorro.isBlack() = cor == "PRETO"
+
+fun Cachorro.isPuddle() = raca == "PUDDLE" // Não funciona
+```
