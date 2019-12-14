@@ -417,3 +417,66 @@ fun giveMeATool(): Pair<String, String> {
 val (ferramenta, uso) = giveMeATool()
 ```
 
+### Listas
+
+Revertendo uma lista
+
+```kotlin
+val testList = listOf(11,12,13,14,15,16)
+
+// Forma normalmente utilizada
+fun reverseList(list: List<Int>): List<Int> {
+    val result = mutableListOf<Int>()
+    for (i in 0..list.size - 1) {
+        result.add(list[list.size-i-1])
+    }
+    return result
+}
+
+// Simplificando com kotlin
+fun reverseList(list: List<Int>): List<Int> {
+    val result = mutableListOf<Int>()
+    for (i in list.size - 1 downTo 0) {
+        result.add(list.get(i))
+    }
+    return result
+}
+
+// Simplificando ainda mais com kotlin
+testList.reversed() // retorna uma nova lista
+```
+
+- `listOf`-> Não pode ser modificado
+- `mutableListOf` - Pode ser modificado
+
+Outros métodos pré definidos
+
+```kotlin
+val caracteristicas = mutableListOf("tímidos", "cabelo vermelho", "gosta de dormir", "rápido", "inteligênte")
+
+//Adicionar ou remover elementos
+caracteristicas.add("teimoso")
+caracteristicas.remove("gordo")
+
+//Verificação
+caracteristicas.contains("vermelho") // false
+caracteristicas.contains("cabelo vermelho") // true
+
+//Outros
+println(caracteristicas.subList(4, caracteristicas.size)) // [rápido, inteligênte]
+listOf(1,2,3).sum() // 6
+listOf("a", "b", "cc").sumBy { it.length } // 4
+```
+
+Em kotlin é possível mapear quase tudo com `mapOf`. Para um map modificável utilize `mutableMapOf`.
+
+```kotlin
+val curas = mapOf("aspirina" to "qualquer doença", "salompas" to "dores musculares")
+
+println(curas.get("aspirina"))
+println(curas["aspirina"])
+
+println(curas.getDefault("água", "não conheço")) // Segundo elemento é a resposta padrão para quando o elemento procurado não é encontrado
+
+curas.getOrElse("água") { "não conheço" }
+```
