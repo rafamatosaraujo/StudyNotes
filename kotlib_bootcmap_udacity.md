@@ -603,5 +603,17 @@ fun label() {
 
 **Obs:** Qualquer expressão em kotlin pode ser rotulada utilizando a sintaxe `rotulo@`
 
+***
 
+### Lambdas e Inline
+
+Sempre que uma função lambda é chamada ela cria uma instância de um objeto. Caso uma função lambda seja chamada muitas vezes, isso pode sobrecarregar os recursos.
+
+Para resolver esse problema kotlin permite utilizar definir uma função `inline`. Isso garante que toda vez que a função for chamada, o compilador irá substituir a função lambda pelas instruções dentro da função lambda.
+
+```kotlin
+inline fun teste(name: String, block: String.() -> Unit) {
+    name.block()
+}
+```
 
