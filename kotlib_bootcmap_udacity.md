@@ -2,7 +2,7 @@
 
 ### Resource: https://www.udacity.com/course/kotlin-bootcamp-for-programmers--ud9011
 
-<hr/>
+***
 
 `Boxing` -> Tipos primitivos no kotlin são "encapsulados" em "objetos", portanto é possível chamar métodos diretamente de um tipo primitivo.
 
@@ -17,7 +17,7 @@ number.toLong()
 1.toLong()
 ```` 
 
-<hr/>
+***
 
 ### Definindo variáveis
 
@@ -52,7 +52,7 @@ val l = b?.length ?: -1
 
 Em ambos os casos o resultado será o mesmo. Se o valor da variável `b` for `null`, a variável `l` assumirá -1 como valor, caso contrário `b.length`.
 
-<hr/>
+***
 
 ### String template
 
@@ -64,7 +64,7 @@ return "$a está escrevendo sobre $b"
 // Rafael está escrevendo sobre kotlin
 ```
 
-<hr/>
+***
 
 ### Condicionais
 
@@ -88,7 +88,7 @@ when(number) {
 // meio cheio
 ```
 
-<hr/>
+***
 
 ### Arrays
 
@@ -100,7 +100,7 @@ var array = Array(5) { it * 2 }
 // [0, 2, 3, 6, 8]
 ```
 
-<hr/>
+***
 
 ### Loops
 
@@ -124,7 +124,7 @@ for (i in 5 downTo 1) { ... }
 for (i in 3..6 step 2) { ... }
 ```
 
-<hr/>
+***
 
 ### Funções
 
@@ -239,7 +239,7 @@ fun teste(arg: Int, operation: (Int) -> Int) : Int {
 val valor = teste(10, { 10 -> 10 + 2 })
 ```
 
-<hr/>
+***
 
 ### Orientação a objetos com kotlin
 
@@ -378,7 +378,7 @@ fun verifica(r: Response): Boolean {
 }
 ```
 
-<hr/>
+***
 
 ### Pares
 
@@ -414,7 +414,7 @@ fun giveMeATool(): Pair<String, String> {
 val (ferramenta, uso) = giveMeATool()
 ```
 
-<hr/>
+***
 
 ### Listas
 
@@ -481,7 +481,7 @@ println(curas.getDefault("água", "não conheço"))
 curas.getOrElse("água") { "não conheço" }
 ```
 
-<hr/>
+***
 
 ### Constantes
 
@@ -506,7 +506,7 @@ class MinhaClasse {
 
 `companioon object` são inicializados no contrutor da classe. Logo só são criados quando a classe é instânciada.
 
-<hr/>
+***
 
 ### Funções de extensão
 
@@ -530,7 +530,7 @@ fun Cachorro.isBlack() = cor == "PRETO"
 fun Cachorro.isPuddle() = raca == "PUDDLE" // Não funciona
 ```
 
-<hr/>
+***
 
 ### Classes genéricas
 
@@ -560,5 +560,48 @@ Ao usar o `Any` garante-se que a classe seja o mais genérico possível. Caso qu
 ```kotlin
 open class AguaDeAquario(var precisaDeNutrientes: Boolean)
 
-class Aquario<T: AguaDeAquario> { ... }
+class Aquario<T: AguaDeAquario> (val aguaDeAquario: T) { ... }
 ```
+
+#### In e Out genéricos
+
+`Out`-> É utilizado quando uma classe genérica precisa ser utilizada como retorno de uma função.
+
+`in` -> É utilizado quando uma classe genérica necessitar ser utilizada como argumento para funções.
+
+```kotlin
+open class AguaDeAquario(var precisaDeNutrientes: Boolean)
+
+// Sintaxe out
+class Aquario<out T: AguaDeAquario> (val aguaDeAquario: T) { ... }
+
+// Sintaxe in
+class Aquario<in T: AguaDeAquario> (val aguaDeAquario: T) { ... }
+```
+
+#### Funções genérica
+
+```kotlin
+fun <T: AguaDeAquario> aguaEstaLimpa(aquario: Aquario<T>) {
+    val limpo = aquario.aguaDeAquario.precisaDeNutrientes
+    println("aquario está limpo: ${limpo}")
+}
+```
+***
+
+### Breaks rotulados
+
+Servem para pausar ou retornar em determinada parte do código.
+
+```kotlin
+fun label() {
+    loop@ for (i in 1..100) {
+        if (i > 10) break@loop 
+    }
+}
+```
+
+**Obs:** Qualquer expressão em kotlin pode ser rotulada utilizando a sintaxe `rotulo@`
+
+
+
