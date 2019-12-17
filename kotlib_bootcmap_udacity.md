@@ -616,4 +616,8 @@ inline fun teste(name: String, block: String.() -> Unit) {
     name.block()
 }
 ```
+***
 
+### Links complementares
+
+[11 dicas (não tão rápidas) sobre Kotlin](https://www.zup.com.br/blog/11-dicas-nao-tao-rapidas-sobre-kotlin)
