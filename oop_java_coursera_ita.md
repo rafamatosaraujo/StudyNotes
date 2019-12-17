@@ -63,7 +63,7 @@ Ao estender uma classe é possível:
 - Adicionar / modificar métodos
 - Adicionar atributos
 
-Não é possível: 
+Não é possível:
 
 - Remover métodos
 - Remover atributos
@@ -83,7 +83,7 @@ Carro carro = new Carro();
 carro.velocidade = 100;
 ```
 
-No exemplo acima, aumenta-se a velocidade do carro através de uma instância da classe. Sendo que o correto seria chamar um método para isso. Como por exemplo: 
+No exemplo acima, aumenta-se a velocidade do carro através de uma instância da classe. Sendo que o correto seria chamar um método para isso. Como por exemplo:
 
 ```java
 carro.acelerar();
@@ -96,5 +96,52 @@ carro.acelerar();
 
 Cuidado para não expor demais os membros das classes. Algumas variáveis só podem ser modifcadas de certas formas. O acesso direto a essas variáveis pode quebrar o funcionamento da classe.
 
+***
 
+### Sobrescrita de métodos
+
+É possível sobrescrever métodos de uma superclasse a fim de modificar seus comportamentos e ainda assim continuar honrrado o contrato da superclasse.
+
+Quando uma classe não pode ser estendida ou um método não pode ser sobrescrito, estes devem ser identificados como `final`.
+
+```java
+//classe
+public final class Empregado { ... }
+
+//método
+public final class Empregado {
+
+    public final double salario() {  ... }
+}
+```
+
+Já em variáveis, o `final` tem um significado diferente. Neste caso ele indica que não é possível atribuir outro valor à variável em questão.
+
+***
+
+### Classes abstratas
+
+Alguns conceitos são muito abstratos para serem instanciados (ex: veículo). Nessa caso cria-se classes abstratas.
+
+```java
+public abstract class Veiculo { ... }
+
+//Errado
+Veiculo v = new Veiculo()
+
+//Correto
+public class Carro extends Veiculo { ... }
+```
+
+Esse tipo de classe não pode ser instanciada, apenas estendida.
+Uma classe abstrata também pode possuir métodos abstratos, que precisam ser implementados pelas subclasses.
+
+```java
+public abstract class Veiculo {
+    public abstract void mover();
+    public abstract String getPosicao();
+}
+```
+
+Em resumo, as classes abstratas definem um contrato e funcionalidades comuns a um grupo de classes.
 
