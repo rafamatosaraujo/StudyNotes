@@ -94,4 +94,7 @@ carro.acelerar();
 - `protected` -> Só pode ser acessado por subclasse e classes do mesmo pacote
 - `default`(vazio) -> Acessível para todas as classes do mesmo pacote
 
+Cuidado para não expor demais os membros das classes. Algumas variáveis só podem ser modifcadas de certas formas. O acesso direto a essas variáveis pode quebrar o funcionamento da classe.
+
+
 
