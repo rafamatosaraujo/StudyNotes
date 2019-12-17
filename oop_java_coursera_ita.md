@@ -69,3 +69,29 @@ Não é possível:
 - Remover atributos
 
 Ao estender uma classe é preciso horar o `contrato` da superclasse, a partir de seus métodos e atributos.
+
+***
+
+### Modificadores de acesso
+
+Os modificadores de acesso permitem que os métodos e atributos de uma classe só possam ser acessados por aqueles que possuem permissão.
+
+Um exemplo sobre a necessidade de utilizar os modificadores de acesso:
+
+```java
+Carro carro = new Carro();
+carro.velocidade = 100;
+```
+
+No exemplo acima, aumenta-se a velocidade do carro através de uma instância da classe. Sendo que o correto seria chamar um método para isso. Como por exemplo: 
+
+```java
+carro.acelerar();
+```
+
+- `private` -> Só pode ser acessado por membros da classe
+- `public` -> Pode ser acessado por qualquer outra classe
+- `protected` -> Só pode ser acessado por subclasse e classes do mesmo pacote
+- `default`(vazio) -> Acessível para todas as classes do mesmo pacote
+
+
