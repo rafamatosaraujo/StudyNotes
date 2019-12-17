@@ -40,7 +40,7 @@ Métodos estáticos geralmente são utilizados como métodos auxiliares.
 
 Uma abordagem informal para modelar uma aplicação com classes e objetos.
 
-![Exemplo de cartão CRC](/Images/OOP_Java/cartao_crc.png)
+![Exemplo de cartão CRC](/Images/OOP_Java/cartao_crc.PNG)
 
 - `Passo 1:` Especifica o sistema (formato de histório)
 - `Passo 2:` Identifica objetos e classes. Substantivos/nomes na especificação são potenciais objetos e classes.
