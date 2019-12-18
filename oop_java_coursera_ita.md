@@ -145,3 +145,55 @@ public abstract class Veiculo {
 
 Em resumo, as classes abstratas definem um contrato e funcionalidades comuns a um grupo de classes.
 
+***
+
+### Encapsulamento
+
+O encapsulamento permite com o que desenvolvedor trabahe em um código sem necessidade de conhecê-lo por completo, apenas a superfície do que interage com a parque em que elestá desenvolvendo. Por isso é importante pensar o software de forma encapsulada, dentro de classes e componentes.
+
+Quando um método de uma classe retorna uma objeto completo (array ou objeto), ele está retornando um apontamento para atributo da classe, e nao uma nova referência. Isso pode gerar problemas, pois ao fazer qualquer alteração no atributo retornado, altera-se também o atributo da classe. Isso é chamado de `quebra de encapsulamento`.
+
+**Soluções:**
+
+1 - Retornar um clone
+
+```java
+public class Atriz {
+
+    private Ator amigo;
+
+    public Ator getAmigo() {
+        Ator at = new Ator();
+        //Copia as informações de amigo
+        return at;
+    }
+}
+```
+
+2- Esconder o objeto
+
+```java
+public class Atriz {
+
+    private Ator amigo;
+
+    public String getNomeAmigo() {
+        return amigo.getNome();
+    }
+
+    public int getIdadeAmigo() {
+        return amigo.getIdade();
+    }
+}
+```
+
+***
+
+### Acoplamento
+
+Acoplamento descreve os relacionamento e dependências entre classes. Um `acoplamento alto` é carcaterizando quando existem muitas dependências entra uma classe e outra, ou entre uma classe e várias outras classes. O `acoplamento baixo` é o contrário.
+
+`Quanto maior o grau de acoplamento, pior para o projeto.`
+
+![Exemplificação de coplamento alto e baixo](/Images/OOP_Java/acoplamento.png)
+
