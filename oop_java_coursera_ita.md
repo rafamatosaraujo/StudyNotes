@@ -227,3 +227,31 @@ public class Carro implements Movel {
 ```
 **OBS:** Uma interface pode estender uma ou mais interfaces. Da mesma forma, uma classe pode implementar mais de uma interface.
 
+***
+
+### Polimorfismo
+
+Em um software orientado a objetos, uma classe pode assumir a formas de sua superclasse ou de uma de suas interfaces.
+
+```java
+Cavalo cavalo = new Cavalo();
+Animal animal = cavalo;
+
+// Um objeto do tipo Cavalo sendo atribuído à uma variável do tipo Animal, sua superclasse.
+```
+Um objeto pode ser sempres passado em parâmetros do tipo de sua superclasse.
+
+```java
+Carro carro = new Carro();
+//Carro implementa a interface Movel
+
+void addCorrida(Movel m) {
+    m.mover(LARGADA);
+}
+
+addCorrida(carro);
+```
+Ao chamar o método `mover` no examplo acima, o método da classe Carro é chamado, não da interface Movel. Isso implica que o mesmo código pode ter diferentes comportamentos dependendo do objeto que está sendo utilizado.
+
+
+
