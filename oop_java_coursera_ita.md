@@ -197,3 +197,61 @@ Acoplamento descreve os relacionamento e dependências entre classes. Um `acopla
 
 ![Exemplificação de coplamento alto e baixo](/Images/OOP_Java/acoplamento.png)
 
+Sempre utilize o princípio `Tell, don't ask` para reduzir o acoplamento das classes. Basicamente ele diz para não pedir ao objeto a informação necessária para realizar um trabalho, mas sim ordene à classe que realize o trabalho.
+
+***
+
+### Interfaces
+
+Quando classes possuem comportamentos em comum, mas não possuem um conceito em comum, não faz sentido utilizar herença.
+
+**Exemplo:** Classe Cavalo e classe carro. Ambas se movem (comportamento em comum), mas um cavalo não tem um conceito em comum com carro. 
+
+Nesse caso ao invés de utilizar a herença, faz-se uso das interfaces para abstrair um comportamento. A interface também é um `contrato` que define os métodos que uma classe precisa ter.
+
+```java
+public interface Movel {
+    public void mover();
+    public void parar();
+    public double getVelocidade();
+    //Todos os métodos de uma interface são abstratos
+}
+
+public class Cavalo implements Movel {
+    // Precisa implementar todos os métodos da interface
+}
+
+public class Carro implements Movel {
+    // Precisa implementar todos os métodos da interface
+}
+```
+**OBS:** Uma interface pode estender uma ou mais interfaces. Da mesma forma, uma classe pode implementar mais de uma interface.
+
+***
+
+### Polimorfismo
+
+Em um software orientado a objetos, uma classe pode assumir a formas de sua superclasse ou de uma de suas interfaces.
+
+```java
+Cavalo cavalo = new Cavalo();
+Animal animal = cavalo;
+
+// Um objeto do tipo Cavalo sendo atribuído à uma variável do tipo Animal, sua superclasse.
+```
+Um objeto pode ser sempres passado em parâmetros do tipo de sua superclasse.
+
+```java
+Carro carro = new Carro();
+//Carro implementa a interface Movel
+
+void addCorrida(Movel m) {
+    m.mover(LARGADA);
+}
+
+addCorrida(carro);
+```
+Ao chamar o método `mover` no examplo acima, o método da classe Carro é chamado, não da interface Movel. Isso implica que o mesmo código pode ter diferentes comportamentos dependendo do objeto que está sendo utilizado.
+
+
+
