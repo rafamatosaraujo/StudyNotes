@@ -65,6 +65,8 @@ Os elementos que compõem um layout são chamados de `views`. Ex: (TextView, But
 
 No exemplo abaixo será criado um aplicativo simples, mostrando um texto com um número de 1 a 6 e um botão para alterar o valor desse texto, imitando o comportamento de um dado.
 
+![Funcionamento do app de dado com números](/Images/Android_kotlin/dice_number.gif)
+
 Começando pelo layout, inicialmente temos o seguinte código:
 
 ```kotlin
@@ -211,5 +213,3 @@ class MainActivity : AppCompatActivity() {
     }
 }
 ```
-
-![Funcionamento do app de dado com números](/Images/Android_kotlin/dice_number.gif)
