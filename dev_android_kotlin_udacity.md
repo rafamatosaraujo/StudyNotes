@@ -59,7 +59,7 @@ Diferentemente de outras lingagens, não é necessário definir a função `main
 
 Os elementos que compõem um layout são chamados de `views`. Ex: (TextView, Button, etc.).
 
-A conexão entre activies e layoutsé feita através de um processo chamado `layout inflation`. Esse processo interpreta o XML e cria um objeto em memória para cada view definido no layout, e os organiza como uma árvore de hierarquia.
+A conexão entre activies e layouts é feita através de um processo chamado `layout inflation`. Esse processo interpreta o XML e cria um objeto em memória para cada view definido no layout, e os organiza como uma árvore de hierarquia.
 
 ![Diagrama de árvore](/Images/Android_kotlin/tree_diagram.png)
 
