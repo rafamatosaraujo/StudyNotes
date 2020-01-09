@@ -175,7 +175,7 @@ val jogar = findViewById<Button>(R.id.jogar)
 
 Esse código é responsável por indentificar o elemento TextView e Button adicionados ao layout. Note que eles são identificados pelo id que foi definido no passo anterior.
 
-Agora é necessário adicionar um comportamento ao aplicativo para quando o o usuário clicar no botão. Para isso será utilizado o método `setOnClickListener` do elemento `Button`. Mas antes vamos criar um funcção para retornar um número aleatório de 1 a 6.
+Agora é necessário adicionar um comportamento ao aplicativo para quando o o usuário clicar no botão. Para isso será utilizado o método `setOnClickListener` do elemento `Button`. Mas antes crie um funcção para retornar um número aleatório de 1 a 6.
 
 ```kotlin
 private fun jogarDado(): Int {
@@ -191,7 +191,7 @@ jogar.setOnClickListener {
 }
 ```
 
-O resultado final ficará assim:
+O resultado final será o seguinte:
 
 ```kotlin
 class MainActivity : AppCompatActivity() {
