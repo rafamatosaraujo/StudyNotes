@@ -326,5 +326,9 @@ Gradle é a ferramenta de build do Android. Algumas das tarefas executadas por e
 * Gerencias as dependências do projeto
 * Roda testes automatizados
 
+Ao desenvolver um projeto, não se define cada um dos devices que o aplicativo irá funcionar. Define-se, dentro do `Gradle` uma API mínima ao qual o app dará suporte. O valor dessa API é que irá ser responsável por determinar se um aparelho pode ou não utilizar o app.
 
+Por exemplo, se eu definir que a API mínima do meu projeto é 19, todos os aparelhos que estiverem com o Android maior ou igual a 19 poderão rodar o app.
+
+![Definindo API mínima de suporte](/Images/Android_kotlin/sdk.png)
   
