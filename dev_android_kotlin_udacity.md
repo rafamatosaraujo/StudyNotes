@@ -316,3 +316,15 @@ class MainActivity : AppCompatActivity() {
 }
 
 ```
+
+#### Um pouco sobre Gradle
+
+Gradle é a ferramenta de build do Android. Algumas das tarefas executadas por ele são:
+
+* Descreve quais dispositivos podem rodar o app
+* Compila o código e os resources em uma APK (Android Application Package)
+* Gerencias as dependências do projeto
+* Roda testes automatizados
+
+
+  
