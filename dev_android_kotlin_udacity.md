@@ -221,3 +221,98 @@ class MainActivity : AppCompatActivity() {
     }
 }
 ```
+***
+
+#### Adicionando imagens
+
+Seguindo no mesmo exemplo acima, é hora de deixar o app um pouco mais legal e trocar o número por imagens reais. No exemplo do curso, utiliza-se imagens das faces dos dados, mas pode ser qualquer uma para fins de aprendizado.
+
+Adicionar imagens ao projeto é tarefa bem simples, basta arrastar e soltar as imagens que deseja adicionar ao projeto dentro da pasta `drawable`, só se atenten para fazer dentro da estrutura de `Project` e não `Android`
+
+![Local onde salvar as imagens](/Images/Android_kotlin/pastas.png)
+
+Agora é preciso substituir o elemento `TextView` do layout pelo elemento `ImageView`, e fazer as devidas alterações na Activity. Para facilitar, defina o `id` do ImageView com "valor", igual ao TextView.
+
+```kotlin
+<ImageView
+        android:id="@+id/valor"
+        android:src="@drawable/dice_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+```
+
+Note que o atributo responsável por identificar a imagens é o `src`.
+
+Agora é necessário alterar a activity em dois pontos:
+
+1 - Alterar o tipo da variável valor para ImageView
+
+```kotlin
+val valor = findViewById<ImageView>(R.id.valor)
+```
+
+2 - Alterar o algoriítimo do clickListener do botão para alterar a imagem de acordo com o valor retornado pelo método jogarDado
+
+```kotlin
+jogar.setOnClickListener {
+    val randomInt = jogarDado()
+
+    val resource = when(randomInt) {
+        1 -> R.drawable.dice_1
+        2 -> R.drawable.dice_2
+        3 -> R.drawable.dice_3
+        4 -> R.drawable.dice_4
+        5 -> R.drawable.dice_5
+        else -> R.drawable.dice_6
+    }
+
+    valor.setImageResource(resource)
+}
+```
+A fim de deixar o código da activity um pouco mais clean, optei por separar em métodos diferentes a configuração das views e dos listener, e chamar esses métodos dentro do `onCreate`. Abaixo segue o código completo.
+
+```kotlin
+class MainActivity : AppCompatActivity() {
+
+    lateinit var valor: ImageView
+    lateinit var jogar: Button
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        setupView()
+        setupListeners()
+    }
+
+    private fun setupView() {
+        valor = findViewById(R.id.valor)
+        jogar = findViewById(R.id.jogar)
+    }
+
+    private fun setupListeners() {
+        jogar.setOnClickListener {
+            jogarDado()
+        }
+    }
+
+    private fun jogarDado() {
+        val randomInt = Random().nextInt(6) + 1
+
+        val resource = when(randomInt) {
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3 -> R.drawable.dice_3
+            4 -> R.drawable.dice_4
+            5 -> R.drawable.dice_5
+            else -> R.drawable.dice_6
+        }
+
+        valor.setImageResource(resource)
+    }
+}
+
+```
