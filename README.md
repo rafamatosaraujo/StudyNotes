@@ -1,9 +1,12 @@
 # StudyNotes
 
-## Legenda
+***
+
+### Legenda
 
 :statue_of_liberty: Conteúdo em inglês - :eight_spoked_asterisk: Possui legenda em Portugês - :white_check_mark: Notas finalizadas - :x: Notas não finalizadas
 
+***
 
 ### Bootcamp Kotlin para programadores
 
