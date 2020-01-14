@@ -10,7 +10,7 @@
 
 ### TDD - Desenvolvimento de Software guiado por testes
 - Curso -> [Clique aqui](https://www.coursera.org/learn/tdd-desenvolvimento-de-software-guiado-por-testes)
-- Notas do curso -> [Clique aqui](https://github.com/gifs88/StudyNotes/blob/master/tdd_corusera.md)
+- Notas do curso -> [Clique aqui](https://github.com/gifs88/StudyNotes/blob/master/tdd_coursera.md)
 
 ### Desenvolvendo aplicativos Android com Kotlin
 - Curso -> [Clique aqui](https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012)
