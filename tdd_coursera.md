@@ -29,3 +29,26 @@ O ciclo do TDD funciona da seguinte forma
 
 `Baby Steps` -> Deve-se alternar com frequência entre criar testes e código de produção.
 
+***
+
+#### Refatoração
+
+Refatoração é a transformação de um código escrito sem qualidade em um código escrito com qualidade. Essa transformação deve tornar o código:
+
+* Mais fácil de ser compreendido (leitura)
+* Mais fácil de ser modificado (manutenção)
+* Sem alterar seu comportamento observável
+
+Segundo [Martin Fowler](https://pt.wikipedia.org/wiki/Martin_Fowler): "Code refactoring é uma série de pequenos passos, cada um dos quais muda a estrutura interna do programa sem alterar o seu comportamento externo."
+
+Um código de qualidade é:
+
+* Fácil de ler
+* Fácil de compreender
+* Fácil de promover mudanças
+
+O que não fazer durante a refatoração:
+
+* Não se adiciona nova característica ou responsabilidade
+* Não se adiciona teste
+
