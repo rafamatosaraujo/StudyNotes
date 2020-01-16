@@ -1,6 +1,6 @@
 # StudyNotes
 
-Desde que resolvi mudar minha carreira abrindo mão da Engenharia Mecânica para trabalhar com tecnologia, recebi conselhos de muita gente.
+Desde que resolvi mudar minha carreira abrindo mão da Engenharia Mecânica para trabalhar com tecnologia, recebi conselhos de muita gente que foram extremamente importantes no meu desenvolvimento.
 
 Com o tempo fui crescendo e sendo reconhecido pela área, tendo a cada dia um novo aprendizado. E junto com esse crescimento comecei a ter a sensação de que estava fazendo muito pouco (para não dizer nada) para ajudar àqueles que estão buscando trilhar um caminho na área de tecnologia.
 
