@@ -111,3 +111,69 @@ Views cujo objetivo principal é envelopar outras tipos de views são chamados d
 * FrameLayout
 * ConstraintLayout
 
+#### Data binding
+
+Para obter uma referência das views de um layout, a activity faz uso do método `findViewById`. Porém esse método é chamado em tempo de execução, ou seja, toda vez que esse método é chamado, o Android precisa pesquisar por toda hierarquia de views para encontrar a view desejada. Se o app tiver um layout muito complexo, isso pode deixar o app lento.
+
+![Renderizando views sem databind](/Images/Android_kotlin/after_databind.png)
+
+O databind permite que eum layout se conecta a uma activity em tempo de compilação. O compilador gera uma classe helper chamada `Binding` que pode ser acessada pela activity a fim de se conectar com o xML.
+
+![Renderizando views com databind](/Images/Android_kotlin/before_databinding.png)
+
+Para utilizar o data binding primeiro é preciso habilitá-lo no arquivo gradle(app).
+
+```kotlin
+android {
+
+    ...
+
+    dataBinding {
+        enabled = true
+    }
+}
+```
+
+No arquivo XML(layout) em que será utilizado o data binding, é necessário evelopar todo o conteúdo em uma tag do tipo `layout`.
+
+```kotlin
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas/android.com/apk/res-auto">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        ...
+
+    </LinearLayout>
+
+</layout>
+```
+
+Por último é necessário definir o objeto binding na activity.
+
+```kotlin
+class MainActivity: AppCompatActivity() {
+    
+    private lateinit var binding: ActivityMainBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        //findViewbyId<Button>(R.id.done_button).setOnClickListener {
+        //    ...
+        //}
+        binding.done_button.setOnClickListener {
+            ...
+        }
+
+    }
+
+    ...
+}
+```
+
