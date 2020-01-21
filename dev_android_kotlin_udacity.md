@@ -179,15 +179,15 @@ class MainActivity: AppCompatActivity() {
 
 Além de fazer o bind entre layout e activity, a técnia do data binding também tem o poder de fazer o bind de dados. Por exemplo, imagine uma classe de dados que representa o nome completo de uma pessoa. É possível fazer o bind dos dados dessa classe diretamente na activity e no layout.
 
+Primeiro defina o contrato da classe de dados:
+
 ```kotlin
-//Classe de dados
-
 data class MyName(var firstName: String = "", var secondName: String = "")
+```
 
-//=======================================================
+Em seguida, no arquivo de layout, adicione a tag `data` encapsulando a tag `variable`. E defina o valor da propriedade de `text` dos TextView.
 
-//Layout (XML)
-
+```kotlin
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas/android.com/apk/res-auto">
 
@@ -222,11 +222,11 @@ data class MyName(var firstName: String = "", var secondName: String = "")
     </LinearLayout>
 
 </layout>
+```
 
-//=======================================================
+Por fim, na activity, instancie um objeto `MyName` e defina o valor de `firstName` e `secondName`. Dentro do método `onCreate` defina o valor da váriavel `myName` criada no layout.
 
-//Activity
-
+```kotlin
 class MainActivity: AppCompatActivity() {
     
     private lateinit var binding: ActivityMainBinding
@@ -251,3 +251,4 @@ class MainActivity: AppCompatActivity() {
 }
 ```
 
+***
