@@ -177,3 +177,77 @@ class MainActivity: AppCompatActivity() {
 }
 ```
 
+Além de fazer o bind entre layout e activity, a técnia do data binding também tem o poder de fazer o bind de dados. Por exemplo, imagine uma classe de dados que representa o nome completo de uma pessoa. É possível fazer o bind dos dados dessa classe diretamente na activity e no layout.
+
+```kotlin
+//Classe de dados
+
+data class MyName(var firstName: String = "", var secondName: String = "")
+
+//=======================================================
+
+//Layout (XML)
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas/android.com/apk/res-auto">
+
+    //Adicione a tag data junto com a tag variable
+    <data>
+        <variable
+            name="myName"
+            type="com.example.android.nomeDoProjeto.MyName" />
+    </data>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            //No campo text, defina a variável firstName
+            android:text="@={myName.firstName}"/>
+
+        <TextView
+            android:id="@+id/second_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            //No campo text, defina a variável secondName
+            android:text="@={myName.secondName}"/>
+
+    </LinearLayout>
+
+</layout>
+
+//=======================================================
+
+//Activity
+
+class MainActivity: AppCompatActivity() {
+    
+    private lateinit var binding: ActivityMainBinding
+    //Crie uma instância de MyName
+    private val myName: NyName = myName("Rafael", "Matos Araújo")
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        //Defina o valor da variável do layout (binding.myName) com o valor da variável instanciada acima (myName)
+        binding.myName = myName
+
+        binding.done_button.setOnClickListener {
+            ...
+        }
+
+    }
+
+    ...
+}
+```
+
