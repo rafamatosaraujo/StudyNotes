@@ -252,3 +252,29 @@ class MainActivity: AppCompatActivity() {
 ```
 
 ***
+
+#### Constraint Layout
+
+`Constraint` -> Uma conexão ou alinhamento, relativo a outro elemento da UI, ao layout pai, ou a uma guideline invisível.
+
+Vantagens do Constraint Layout
+
+* Responsivo
+* Geralmente a hierarquia de views é mais simples
+* Otimizado para organizar as views
+  
+`Proporção (Ratio)` -> É possível determinar a dimensão de elementos através de uma proporção. Para fazer isso define-se um dos atributos de dimensão (width ou height) com o valor desejado, e outros como 0dp.
+
+Também é necessário definir a proporção do elemento. Nesse caso utiliza-se o atributo `layout_constraintDimesionRatio`.
+
+```kotlin
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="0dp"
+    android:layout_constraintDimesionRatio="1:1"
+    ...
+    />
+```
+Nesse caso o elemento terá a forma de uma quadrado, com a proporção de 1:1, ou seja, o valor do atributo `height` será exatamente igual ao valor do atributo `width`.
+
+
