@@ -52,3 +52,32 @@ O que não fazer durante a refatoração:
 * Não se adiciona nova característica ou responsabilidade
 * Não se adiciona teste
 
+***
+
+#### Princípios do TDD
+
+1 - Feedback rápido é importante para o aprendizado
+
+2 - Usar a solução mais simples que funciona
+
+3 - O design é evolutivo e segue as necessidades da aplicação (nunca tente prever uma mudança)
+
+4 - Os testes trazem segurança para que funcionalidades não sejam quebradas
+
+5 - Os testes são uma documentação sem atualizada de como a classe funciona
+
+6 - Todo código é culpado até que se proce inocente
+
+7 - É mais divertido testar antes
+
+***
+
+#### Mitos e lendas do TDD
+
+`TDD sempre usa teste de unidade` -> A maior parte das vezes o TDD é feito utilizando teste de unidade, mas nada impede que seja feito TDD com testes de componenete ou integração. O benefício do teste de unidade é que ele ajuda a desacoplar a classe de suas dependências. O importante é conseguir manter um ritmo alternado entre o código de teste e de produção.
+
+`Ao criar todos os testes primeiro para depois implementar, também está fazendo TDD` -> No TDD é importante avançar em pequenos passos, trabalhando um teste por vez. Lembre-se sempre dos baby steps, é muito improtante alterat entre testes e código de produção.
+
+`TDD faz o código ficar a prova de erros` -> O TDD pode ajudar a prevenir muitos erros, mas não garante que não vão acontecer erros. Algum caso especial pode ter sido esquecido nos testes, a implementação do teste pode estar errada, o requisito pode ter sido mal interpreteado, e etc. Há vários motivos que podem fazer com que o código esteja errado mesmo com a utilização do TDD.
+
+`O desenvolvedor não pode testar o próprio código` -> Existem diferentes tipos de testes com diferentes objetivos. O objetivo do teste feito no TDD é verificar se o código tem o comportamente esperado pelo desenvolvedor, mas ele não elimina nenhum outro tipo de teste que o cliente deseje.
