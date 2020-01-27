@@ -81,3 +81,26 @@ O que não fazer durante a refatoração:
 `TDD faz o código ficar a prova de erros` -> O TDD pode ajudar a prevenir muitos erros, mas não garante que não vão acontecer erros. Algum caso especial pode ter sido esquecido nos testes, a implementação do teste pode estar errada, o requisito pode ter sido mal interpreteado, e etc. Há vários motivos que podem fazer com que o código esteja errado mesmo com a utilização do TDD.
 
 `O desenvolvedor não pode testar o próprio código` -> Existem diferentes tipos de testes com diferentes objetivos. O objetivo do teste feito no TDD é verificar se o código tem o comportamente esperado pelo desenvolvedor, mas ele não elimina nenhum outro tipo de teste que o cliente deseje.
+
+***
+
+#### O papel do mau cheiro (bad smell)
+
+Para definir o que deve ser refatorado, primeiro é preciso examinar o código em busca de coisas que não estão bem implementadas no código, ou que podem causar dor de cabeça no futuro caso não seja corrigido. Esses sintomas são chamadas de `mau cheiro`.
+
+Tipos mais comuns de mau cheiro:
+
+* Nome inadequado de métodos e variáveis
+* Código duplicado
+* Método grande (máximo de 10 linhas)
+* Classe grande (God class)
+* Comandos de `if` e `switch` de forma abusiva
+* Inveja de característica -> Tell don't ask
+* Intimidade imprópria -> Parecido com a God class mas em uma menor escala
+* Comentários
+
+**O ciclo da refatoração**
+
+![Ciclo do TDD](/Images/TDD/ciclo_refactor.png)
+
+***
