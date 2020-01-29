@@ -104,3 +104,17 @@ Tipos mais comuns de mau cheiro:
 ![Ciclo do TDD](/Images/TDD/ciclo_refactor.png)
 
 ***
+
+#### Casos de testes a partir de responsabilidades
+
+Os casos de testes devem ser definidos a partir dos requisitos do projeto. Para cada responsabilidade identificada obetem-se uma lista de casos de testes.
+
+O ciclo do TDD vai consumir casos de testes relativos a uma dada repsonsabilidade.
+
+![Ciclo do TDD](/Images/TDD/req_cicloTDD.png)
+
+1 - Para cada requisito defina "N" casos de testes
+
+2 - Resolva cada caso de teste listado no passo anterior sguindo ciclo do TDD
+
+3 - Se houver mais requisitos repita os passos 1 e 2 até terminar de mapear todos os requisitos
