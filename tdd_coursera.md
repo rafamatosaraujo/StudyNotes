@@ -118,3 +118,25 @@ O ciclo do TDD vai consumir casos de testes relativos a uma dada repsonsabilidad
 2 - Resolva cada caso de teste listado no passo anterior sguindo ciclo do TDD
 
 3 - Se houver mais requisitos repita os passos 1 e 2 até terminar de mapear todos os requisitos
+
+***
+
+#### Testando classes com dependências
+
+Ao se deparar com o teste de uma classe que possua dependências externas, e importate isolar essas dependências, pois:
+
+* A dependência pode demorar para executar
+* A dependências pode depender da infraestrutura
+* A dependência pode ter comportamento complexo
+
+O TDD pode definir não sómente a interface interna de uma classe, mas também a interface das dependências. Para fazer isso, deve-se trocar a dependência por uma `Mock object`.
+
+* O `Mock object` é um objeto simulado que copia o comportamento de uma objeto real de forma controlada.
+
+Mas nem sempre é possível trocar as dependências por um mock. Quanto menor o desacoplamento da classe, mais fácil é utilizar o mock. As classes precisam permitir que os mocks possam ser colocados no lugar de suas dependências, e para conseguir isso é importante utilizar `injeção de dependências`.
+
+As três diretivas de um mock object são:
+
+* Imitar a interface da dependência
+* Simular o comportamento do cenário de teste
+* Verificar as chamadas esperadas da classe
