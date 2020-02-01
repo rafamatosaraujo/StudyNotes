@@ -140,3 +140,10 @@ As três diretivas de um mock object são:
 * Imitar a interface da dependência
 * Simular o comportamento do cenário de teste
 * Verificar as chamadas esperadas da classe
+
+**Quando utilizar mocks?**
+
+* Dependência que lida com recursos externos difíceis de testar ou tem lógica completa -> `Utilizar mock` - O acesso a recursos externos pode deixar o teste lento e pode ser mais complicado preparar o cenário.
+* Deve-se mockar diretamente uma classe JDK ou de um framework que está sendo utilizado? -> `Não utilizar mock` - A API nativa pode ter muitos detalhes que vão dificultar a criação do mock. É melhor criar uma classe intermediária que encapsula a API nativa, e criar um mock dessa classe intermediária.
+* Deve-se mockar classes usadas internamentes que não devem ser expostas aos clientes da classe? -> `Não utilizar mock` - O teste ficará acoplado a uma solução interna da classe, tornando-a difícil de ser alterada. Ou seja, a solução não poderá ser refatorada sem alterar o teste.
+* Deve-se mockar dependências que podem receber classes com diferentes comportamentos? -> `Utilizar mock` -  Pode-se utilizar o próprio mock para projetar a API da dependência. Também é possível explorar possibilidades que uma classe individual poderia não implementar.
