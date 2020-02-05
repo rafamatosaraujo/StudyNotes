@@ -26,7 +26,7 @@ Espero que gostem e que seja útil! :hand: :facepunch: :rocket:
 - Curso -> [Clique aqui](https://www.coursera.org/learn/orientacao-a-objetos-com-java)
 - Notas do curso -> [Clique aqui](https://github.com/gifs88/StudyNotes/blob/master/oop_java_coursera_ita.md)
 
-### TDD - Desenvolvimento de Software guiado por testes :x:
+### TDD - Desenvolvimento de Software guiado por testes :white_check_mark:
 
 - Curso -> [Clique aqui](https://www.coursera.org/learn/tdd-desenvolvimento-de-software-guiado-por-testes)
 - Notas do curso -> [Clique aqui](https://github.com/gifs88/StudyNotes/blob/master/tdd_coursera.md)
