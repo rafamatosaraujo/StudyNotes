@@ -277,4 +277,57 @@ Também é necessário definir a proporção do elemento. Nesse caso utiliza-se 
 ```
 Nesse caso o elemento terá a forma de uma quadrado, com a proporção de 1:1, ou seja, o valor do atributo `height` será exatamente igual ao valor do atributo `width`.
 
+### Navigation
 
+#### Fragments
+
+Os fragments foram introduzidos no android 3.0, basicamente para dar suporte a dispositivos com tela maior, como tablets. Neste caso, a `activity` atuava como um frame, que poderia conter um ou mais `fragments`, cada um com seu respectivo layout. É uma ideia bem parecida com a das `divs` do HTML.
+
+![Conceito de fragment e activity](/Images/Android_kotlin/fragments.png)
+
+Os fragments funcionam como uma view comum, mas devem ser criados em classes separadas da activity.
+
+No contexto de navagação, quando se navega de uma activity para outra, a activity anterior fica salva em uma pilha ordenada da aplicação. O mesmo acontece quando se navega de um fragment para o outro, a diferença é que o gerenciamento dessa pilha é feito por uma classe especial chamada `FragmentManager`.
+
+#### Pricípios da navegação
+
+1 - Sempre existe um ponto inicial
+2 - Você sempre pode voltar (Last In First Out)
+3 - O botão `up` (seta de voltar no topo dos apps) sempre retorna para o destino anterior.
+
+#### Intents e compartilhamento
+
+As `intenets` representam uma intenção do app, e podem ser implicitas ou explicitas.
+
+`Intent explicita` -> Carrega uma activity utilizando a referencia exata da mesma.
+
+`Intent implicita` -> Define o que se deseja fazer, e deixa que o sistema decida qual activity chamar. Exemplo: Geralmente os botões de share utilização intents implicitas dizendo que querem compartilhar dados, e o sistema opoeracional define quais apps possuem essa funcionalidade.
+
+Todas as intents implicitas devem possuir uma `intent action`, que é responsável por descrever o tipo de ação que deve ser executada (ACTION_VIEW, ACTION_DIAL, ACTION_EDIT ... ). 
+
+Junto com a intent action deve haver uma `intent category`, que nada mais é do que um subtipo da ação (CATEGORY_APP_MUSIC, CATEGORY_APP_MAPS ... ).
+
+Por fim, as intents implicitas também podem definir um tipo de dado, como texto por exemplo.
+
+Para serem inicializadas, todas as activies devem ser declaradas no arquivo `manifest.xml`. 
+
+```xml
+<application
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:supportsRtl="true"
+    android:theme="@style/AppTheme">
+    <activity android:name=".ui.ASActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+</application>
+```
+
+No caso de uma activity comum, ela pode ser declarada apenas com a tag `activity`, porém caso seja um activity que aceite algum tipo de intent implicita, ela deve declarar também a tag `intent-filer`.
+
+No exemplo acima, a activity `ASActivity` possui um intent filter da ação `MAIN` e da categoria `LAUNCHER`.
