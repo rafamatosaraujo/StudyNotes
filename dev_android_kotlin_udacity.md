@@ -277,6 +277,8 @@ Também é necessário definir a proporção do elemento. Nesse caso utiliza-se 
 ```
 Nesse caso o elemento terá a forma de uma quadrado, com a proporção de 1:1, ou seja, o valor do atributo `height` será exatamente igual ao valor do atributo `width`.
 
+***
+
 ### Navigation
 
 #### Fragments
@@ -331,3 +333,94 @@ Para serem inicializadas, todas as activies devem ser declaradas no arquivo `man
 No caso de uma activity comum, ela pode ser declarada apenas com a tag `activity`, porém caso seja um activity que aceite algum tipo de intent implicita, ela deve declarar também a tag `intent-filer`.
 
 No exemplo acima, a activity `ASActivity` possui um intent filter da ação `MAIN` e da categoria `LAUNCHER`.
+
+***
+
+### Ciclo de Vida de Activites e Fragments
+
+Cada activity ou fragment possui seu próprio ciclo de vida. Esse ciclo de vida é composto pelos diferentes estados em que a activity passa do momento em que é inicializada ao momento em que é destruída.
+
+![Digrama do ciclo de vida de uma activity](/Images/Android_kotlin/activity_lifecycle.png)
+
+#### Estados do ciclo de vida de uma actitity:
+
+* Created - Activity acabou de ser criada, mas não está visível e não possui foco.
+* Started - Activity está visível mas não possui foco.
+* Resumed - Activity está rodando, está visível e possui foco.
+* Destroied - Activity foi destruída por completo.
+* Initialized - Estado para toda vez que uma activity for criada. É um estado transitório, automáticamente vai para `created`.
+
+#### Métodos de callbacks do ciclo de vida da activity:
+
+* onCreate - Chamado quando a activity foi criada, mas ainda não está visível para o usuário
+* onStart - Chamado quando a activity se torna visível para o usuário
+* onResume - Chamado quando a activity tem foco (usuário pode interagir com a activity)
+* onDestroy - Chamado quando a activity é finalizada por completo
+* onPause - Chamado quando a activity perde o foco
+* onStop - Chamado quando a activity é retirada da tela do usuário
+* onRestart - Bem parecido com o `onCreate`. A diferença é que o onCreate é chamado na primiera inicialização da activity, enquando o onRestart é chamado quando a activity já foi inicializada.
+
+![Digrama do ciclo de vida de um fragment](/Images/Android_kotlin/fragment_lifecycle.png)
+
+O ciclo de vida do fragment é bem parecido com o da activity, com algumas diferenças. Logo, apenas os métodos diferentes serão abordados.
+
+#### Métodos de callbacks do ciclo de vida do fragment:
+
+* onCreateView - Chamado entre os métodos `onCreate` e `onActivityCreated`. Quando o sistema irá renderizar o fragment pela primeira vez ou quando o fragment irá se tornar visível novamente para o usuário.
+* onAttach - Chamado quando o fragment é anexado pela primeira vez na activity.
+* onActivityCreated - Chamado quando o método `onCreate` da activity retorna e a mesma tenha sido inicializada. O objetivo desse método é conter qualquer código que necessite de uma instância da activity. Ele é chamado várias vezes durante o ciclo de vida de um fragment.
+* onDestroyView - Chamado quando o método `onDestroy` da activity é chamado
+* onDetach - Chamado quando a associação entre o fragment e activity é destruída
+
+#### Links úteis
+
+[The Android Lifecycle cheat sheet — part I: Single Activity](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-i-single-activities-e49fd3d202ab)
+
+[The Android Lifecycle cheat sheet — part II: Multiple Activities](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-ii-multiple-activities-a411fd139f24)
+
+[The Android Lifecycle cheat sheet — part III: Fragments](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iii-fragments-afc87d4f37fd)
+
+#### Lifecycle Library
+
+Bibloteca criada pelo Google e disponibilizada em 2017 para ajudar a trabalhar com o ciclo de vida das activities e dos fragments sem a necessidade de utilizar os métodos de callback.
+
+```kotlin
+class MainACtivity: AppCompatActivity() {
+    // resto da classe
+    fun onButtonClick() {
+        if (this.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED) {
+            // fazer algo
+        })
+    }
+}
+```
+Além disso, essa biblioteca disponibiliza duas interfaces:
+
+* LifecycleOwner - um classe que possui um ciclo de vida (activity ou fragment)
+* LifecycleObserver - Permite que objetos observem o ciclo de vida dos `LifecycleOwners`
+
+Abaixo segue um exemplo de implememntação:
+
+```kotlin
+class DessertTimer(lifecycle: Lifecycle) : LifecycleObserver {
+    init {
+        lifecycle.addObserver(this)
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    fun startTimer() {...}
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    fun stopTimer() {...}
+}
+
+class MainACtivity: AppCompatActivity() {
+    private lateinit var dessertTimer: DessertTimer
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        dessertTimer = DessertTimer(this.lifecycle)
+    }
+}
+```
+
