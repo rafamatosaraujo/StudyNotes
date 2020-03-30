@@ -35,3 +35,8 @@ Espero que gostem e que seja útil! :hand: :facepunch: :rocket:
 
 - Curso -> [Clique aqui](https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012)
 - Notas do Curso -> [Clique aqui](https://github.com/gifs88/StudyNotes/blob/master/dev_android_kotlin_udacity.md)
+
+### SOLID Princípios de design de software em Java :x: :statue_of_liberty:
+
+- Curso -> [Clique aqui](https://app.pluralsight.com/library/courses/solid-software-design-principles-java/table-of-contents)
+- Notas do Curso -> [Clique aqui](https://github.com/gifs88/StudyNotes/blob/master/solid_java_pluralsight.md)
