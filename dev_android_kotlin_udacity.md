@@ -424,3 +424,36 @@ class MainACtivity: AppCompatActivity() {
 }
 ```
 
+***
+
+### Arquitetura  - Camada de UI
+
+A arquitetura de uma aplicação é a forma como se projeta as classes da aplicação, assim como a forma como essas classes se relacionam. A arquitetura de um app depende muito do contexto em que este está inserido assim como de suas necessidades.
+
+![Exemplo de arquiteutra](/Images/Android_kotlin/ui_achiteure_1.0.png)
+
+**Link útil:** [Android Architeures Blueprint](https://github.com/android/architecture-samples)
+
+**Arquiteura que será abordada no curso - MVVM**
+
+![Exemplo de arquiteutra MVVM](/Images/Android_kotlin/ui_achiteure_1.1.png)
+
+#### Separação de responsabilidades
+
+Divida o código em classes separadas, cada qual com sua responsabilidade bem definida. No caso da arquitetura MVVP, trabalha-se com 3 tipos diferentes de classes na camada de UI.
+
+* UI Controller (Activity ou Fragment) - Responsável pelas tarefas relacionadas à interface do usuário, como por exemplo mostrar ou esconder um botão.
+* ViewModel - Guardar toda informação necessária pela interface do usuário e prepará-la para apresentação. Além disso, a ViewModel também pode fazer cálculos e transformações simples com tais informações.
+* LiveData - As instâncias dessa classe estão contidas na ViewModel. São cruciais para comunicação entre a ViewModel e a UI Controller.
+
+#### ViewModel
+
+Classe abstrata que guarda as infromações de UI do app. Sobrevive à mudanças de configuração.
+
+Sem a classe ViewModel, as informações que são exibidas na interface do usuário ficam salvas no próprio fragment ou activity. Dessa forma, sempre que há uma mudança de configuração no app (por exemplo, ao rotacionar o telefone), o fragment ou activity é destruído e reconstruído, ou seja, se as infromações de UI não foram salvas antes dessa mudanças, elas se perderam.
+
+![Exemplo de arquiteutra sem ViewModel](/Images/Android_kotlin/ui_achiteure_1.2.png)
+
+Ao utilizar a classe ViewModel e apenas referênciá-la na fragment ou activity, quando há uma mudança de configuração os dados não são perdidos, uma vez que a ViewModel não é afetada. Dessa forma, basta reconectar o novo fragment ou activity ao ViewModel que os dados estarão disponíves.
+
+![Exemplo de arquiteutra com ViewModel](/Images/Android_kotlin/ui_achiteure_1.3.png)
