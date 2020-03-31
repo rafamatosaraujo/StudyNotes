@@ -457,3 +457,31 @@ Sem a classe ViewModel, as informações que são exibidas na interface do usuá
 Ao utilizar a classe ViewModel e apenas referênciá-la na fragment ou activity, quando há uma mudança de configuração os dados não são perdidos, uma vez que a ViewModel não é afetada. Dessa forma, basta reconectar o novo fragment ou activity ao ViewModel que os dados estarão disponíves.
 
 ![Exemplo de arquiteutra com ViewModel](/Images/Android_kotlin/ui_achiteure_1.3.png)
+
+Para utilizar as classes ViewModel e LiveData, é necessário importar as seguintes dependências no arquivo do gradle e seguir os seguintes passos:
+
+```kotlin
+// Gradle
+implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+// Classe
+class AppViewModel: ViewModel()
+
+// Fragment
+private lateinit var viewModel = AppViewModel
+
+// Dentro do método onCreateView
+viewModel = ViewModelProviders.of(this).get(AppViewModel::class.java) 
+```
+
+**Benefícios de uma boa arquitetura**
+
+* Código mais organizado
+* Mais fácil de debugar
+* Menos problemas com ciclo de vida
+* Aplicação modular
+* Mais fácil de testar
+
+#### LiveData
+
+
