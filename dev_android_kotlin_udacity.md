@@ -484,4 +484,28 @@ viewModel = ViewModelProviders.of(this).get(AppViewModel::class.java)
 
 #### LiveData
 
+Para que essa arquitetura funcione através de um fluxo unidirecional é necessário fazer com que o ViewModel posssa se comunicar de alguma forma com o UI controller para avisá-lo sobre mudanças em quaisquer dods dados, sem que o ViewModel tenha alguma referência de Views.
+
+Para atingir esse objetivo utiliza-se a class LiveData, que é uma classe observável e também tem conhecimento sobre o ciclo de vida.
+
+![LiveData e observer pattetrn](/Images/Android_kotlin/ui_achiteure_1.4.png)
+
+Por exemplo: 
+
+* Imagine um app que apresenta o número 1 na interface do usuário.
+* Toda vez que o usuário toca na tela, soma-se mais 1 a esse número.
+
+No exemplo acima. O valor que será exibido na interface do usuário fica salvo na `ViewModel` como uma instância da clases `MutableLiveData`.
+
+O fragment, ou activity, vai observar essa instância, e sempre que o valor desta for alterado, a mudança é automaticamente refletida na UI controller.
+
+```kotlin
+// Ui Controller
+
+viewModel.number.observe(this, Observer { newNumber ->
+    ...
+})
+```
+
+![Arquitetura Ui Controller + ViewModel](/Images/Android_kotlin/ui_achiteure_1.5.png)
 
