@@ -38,7 +38,7 @@ Acrônimo para cinco princípios de design, destinados a facilitar a compreensã
 
 ***
 
-### Princípio da Responsabilidade Única
+### SRP - Princípio da Responsabilidade Única
 
 Cada função, classe ou módulo deve ter apenas uma razão para mudar.
 
@@ -138,4 +138,110 @@ class ConsoleLogger {
 * Código mais difícil de ler e interpretar
 * Pior qualidade devido a dificuldade de testar
 * Acoplamento alto - nível de interdependência entre componentes (Se o módulo A sabe muito sobre o módulo B, qualquer mudança interna no módulo B pode quebrar as funcionalidades do módulo A)
+
+***
+
+### OCP - Princípio Aberto-Fechado
+
+Classes, funções e módulos devem ser fechados para modificação, porém abertos para extensão.
+
+* Fechado para modificação - Uma funcionalidade nova não deve modificar o código existente
+* Aberto para extensão - Um componente deve poder ser extendido para se comportar de formas diferentes
+
+Em um sistema complexo, fazer mudanças em uma classe existente pode afetar diversas outras partes do software que dependem dessa classe. 
+
+Algumas vantagens de aplicar o OCP:
+
+* Novas funcionalidades podem ser facilmente implementadas e com um custo mínimo
+* Minimiza o risco de bugs de regressão
+* Diminui o acoplamento ao isolar as mudanças em um componenete específico (trabalho junto com o SRP)
+
+#### Estratégias para implementar o OCP
+
+Existem duas boas formas de extender as capacidades de uma classe sem quebrar o OCP. A primeira forma é através da `Herança`. E a segunda através de uma pdrão de projeto chamado `Strategy`.
+
+Exemplo:
+
+```Java
+public class BankAccount {
+    ...
+
+    void trasnferMoney(double amount) {
+        ...
+    }
+}
+```
+
+A classe acima possui a funcionalidade para transferir dinheiro internamente (no mesmo pais). Porém existe a necessidade de implementar a funcionalidade de transferir dinheiro externamente.
+
+A pior maneira de se atingir esse objetivo seria editando o código existente.
+
+**Herança**
+
+```Java
+public class InternationalBankAccount extends BankAccount {
+    ...
+
+    @Override
+    void trasnferMoney(double amount) {
+        // lógica para transferência internacional
+    }
+}
+```
+
+O único problema da herança é que ela aumenta o acoplamento do seu código, especialmente quando se usa uma classe concreta como base.
+
+**Padrão de projeto Strategy**
+
+```Java
+//Processador de trasnferência de dinheiro
+public interface MoneyTransferProc {
+    public void trasnferMoney(double amount);
+}
+```
+
+Ao invés de criar uma nova classe com a nova funcionalidade, cria-se uma interface. E então cria-se quantas classes forem necessárias para implementar essa interface.
+
+```Java
+public class BankAccount implements MoneyTrasnferProc {
+    public void trasnferMoney(double amount) {...}
+}
+
+public class InternationalBankAccount implements MoneyTrasnferProc {
+    public void trasnferMoney(double amount) {...}
+}
+```
+
+A grande vantagem dessa abordagem, é que as classes podem progredir de forma independente, uma vez que não existe acoplamento entre elas.
+
+Após criar a `Strategy` é necessário contrauir uma `Factory` que será capaz de contruí-las de acordo com um tipo de dado.
+
+```Java
+public class MoneyTrasnferProcessorFactory {
+    public void MoneyTrasnferProc build(TrasnferType type) {
+        if (type == TrasnferType.Local) {
+            return new BankAccount();
+        } else if (type == TrasnferType.International) {
+            return new InternationalBankAccount();
+        }
+    }
+}
+```
+
+Com isso, ao processar pagamentos pode-se fazer uso de um método mais genérico.
+
+```Java
+void processPayment(double amount, TrasnferType type) {
+    MoneyTrasnferProc mtp = factory.build(type);
+    mtp.trasnferMoney(amount);
+}
+```
+
+**Estratégia para refactoração**
+
+1 - Pequenas mudanças - Faça as mudanças inline. (Bugfix pode ser feito dessa forma)
+
+2 - Mais mudanças - Considere herança
+
+3 - Muitas mudanças / Descisão dinâmica - Considere interfaces de padrões de projeto
 
