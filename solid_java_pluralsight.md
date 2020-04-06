@@ -245,3 +245,166 @@ void processPayment(double amount, TrasnferType type) {
 
 3 - Muitas mudanças / Descisão dinâmica - Considere interfaces de padrões de projeto
 
+***
+
+### LSP -  Princípio da Substituição de Liskov
+
+Esse princío tem várias definições:
+
+* *Se F é um subtipo de T, logo objetos do tipo T podem ser substituídos por objetos do tipo S sem alterar as funcionalidades do software*
+* *Qualquer objeto de um tipo deve ser substituível por objetos derivados desse tipo, sem alterar as funcionalidades do software*
+
+O princípio de Liskov está completamente ligado à relação entre os objetos de um software. Em orientação a objetos, muitas vezes somos levado a pensar na relação `é um`.
+
+*O quadrado `é um` retângulo*
+
+Entretanto, para seguir o princípio da substituíção de Liskov, precisa-se substituir a relação `é um` por uma relação `é substituível por`.
+
+*A classe retângulo `pode ser completamente substituída` pela classe quadrado?*
+
+#### Violações do LSP
+
+```Java
+class Passaro {
+    public void voar(int altitude) {
+        setAltitude(altitude);
+        ...
+    }
+}
+
+class Avestruz extends Passaro {
+    @Override
+    public void voar(int altitude) {
+        // Não faz nada, pois uma Avestruz não pode voar
+    }
+}
+
+Passaro avestruz = new Avestruz();
+avestruz.voar(1000)
+```
+
+No exemplo acima, o software irá funcionar normalmente. Entretanto, ao chamar o método voar, nada irá acontecer, uma vez que um avestruz não sabe voar apesar de ser um pássaro.
+
+Nesse caso nota-se uma violação do princípio de Liskov. Apesar de na vida real o avestruz ser um pássaro, em orientação a objetos essa relação não pode acontecer, pois `o pássaro não é completamente substituível pelo avestruz`.
+
+```Java
+class Rectangle {
+    public void setHeight(int height) {...}
+    public void setWidth(int width) {...}
+
+    public int calculateArea() {
+        return this.width * this.height;
+    }
+}
+
+class Square extends Rectangle {
+    public void setHeight(int height) {
+        this.height = height;
+        this.width = height;
+    }
+
+    public void setWidth(int width) {...}
+}
+
+Rectangle r = new Square();
+r.setWidth(10);
+r.setHeight(20);
+r.calculateArea(); // Retorna 400
+```
+
+No exemplo acima, apesar de um quadrado ser um retângulo do ponto de vista matemático, do ponto de vista do software existe uma grande inconsistência. 
+
+Ao utilizar o método setWidth, não se espera que a altura também seja configurada. E o mesmo ocorre com o método setHeight.
+
+Por isso, `o retângulo não é completamente substituível pela classe quadrado`.
+
+```Java
+interface Account {
+    void processLocalTransfer(double amount);
+    void processInternationalTransfer(double amount);
+}
+
+class SchoolAccount implements Account {
+    void processLocalTransfer(double amount) {...}
+
+    void processInternationalTransfer(double amount) {
+        throw new RuntimeException("Not implemented");
+    }
+}
+
+Account account = new SchoolAccount();
+account.processInternationalTransfer(1000); // Quebra a aplicação
+```
+
+Uma violção do princípio de Liskov acontece toda vez que, ao implementar uma interface, um método retornar uma exception por falta de implementação. Isso também viola o princípio da segregação de interfaces (ISP).
+
+```Java
+for(Task t: tasks) {
+    if (t instanceof Bugfix) {
+        Bugfix bf = (Bugfix)t;
+        bf.initializeBugDescription();
+    }
+    t.setInProgress();
+}
+```
+
+Sempre que é necessário verificar o tipo de um objeto para realizar uma tarefa, como no exemplo acima, temos um indicativo da quebra do princípio de Liskov. Isso indica que o tipo de objeto com o qual se está trabalhando não pode ser substiuído pelo tipo adequado.
+
+#### Refatorando o código
+
+* Elimine relações incorretos entre objetos
+* Utilize o princípio "mande, não pergunte!" (*tell, don't ask*) para eliminar casting e verificação de tipos
+
+```Java
+class Passaro {
+    public void voar(int altitude) {...}
+}
+
+class Avestruz {
+    ...
+}
+```
+
+No exemplo do avestruz, o correto seria criar duas classes diferentes, sem um relacionamento de herança entre as duas. O mesmo pode ser feito no exemplo do quadrado.
+
+```Java
+class SchoolAccount implements LocalAccount {
+    void processLocalTransfer(double amount) {...}
+}
+```
+
+No exemplo da escola, ao invés de criar apenas uma interface com dois métodos, crie duas interfaces e utilize apenas àquela que for necessária.
+
+```Java
+class BugFix extends Task {
+    @Override
+    public void setInProgress() {
+        this.initializeBugDescription();
+        this.setInProgress();
+    }
+}
+
+for (Task t: tasks) {
+    t.setInProgress();
+}
+```
+
+No exemplo do bugfix, ao invés de perguntar dentro do loop se o objeto era do tipo Bugfix, basta reescrever o método setInProgress dentro da própria classe.
+
+*Quanto menor for a classe base, menor a chance de quebrar esse princípio.*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
