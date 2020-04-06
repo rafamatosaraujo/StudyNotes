@@ -393,7 +393,134 @@ No exemplo do bugfix, ao invés de perguntar dentro do loop se o objeto era do t
 
 *Quanto menor for a classe base, menor a chance de quebrar esse princípio.*
 
+***
 
+### ISP - Princípio da Segregação de Interfaces
+
+Clientes não devem ser forçados a depender de métodos que não utilizam.
+
+A palavra `interface` não está ligada apenas às interfaces do Java, mas a qualquer método público, ou classe abstrata, da qual a classe em questão seja dependente.
+
+**O ISP reforça outros princícpios**
+
+* LSP - Ao manter uma interface pequena, a classe que a implementá-la terá maior chance de subsituí-la por completo.
+* SRP - Classes com interfaces pequenas são mais focadas e tendem a ter uma única responsabilidade.
+
+**Benefícios do ISP**
+
+* Minimiza as dependências e reduz o acoplamento do código
+* Código mais coeso
+* Reforça o uso do SRP e LSP
+
+#### Identificando interfaces grandes
+
+**Interfaces com muitos métodos**
+
+```Java
+interface LoginService {
+    void singIn();
+    void singOut();
+    void updateRemeberMeCookie();
+    User getUserDetails();
+    void setSessionExpiration(int seconds);
+    void validateToken();
+    ...
+}
+```
+
+Sempre que se deparar com uma interface que possua muitos métodos, pode ser um indício de que esta pode ser quebrada em interfaces menores.
+
+Imagine que é necessário implementar um login utilizando os serviços do Google. Utilizando a interface acima, vários metódos precisarão retornar uma excpetion porque não há necessidae de implentação.
+
+Nesse caso, tanto o ISP quanto o LSP seriam violados.
+
+```Java
+class GoogleLoginService implements LoginService {
+    ...
+    public void updateRemeberMeCookie() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void setSessionExpiration(int seconds) {
+        throw new UnsupportedOperationException();
+    }
+}
+```
+
+**Interfaces com baixa coesão**
+
+Coesão se refere ao propósito de determinado componente.
+
+```Java
+interface ShoppingCard {
+    void addItem(Item item);
+    void removeItem(Item item);
+    void processPayment();
+    boolean checkItemInStock(Item item);
+}
+```
+
+No exemplo acima, dois métodos não estão alinhados ao conceito de um carrinho de supermercado:
+
+* processPayment
+* checkItemInStock
+
+Logo, ao implementar essa interface várias dependências podem ser criadas em uma única classe, aumentando seu acoplamento. Além disso, a classe que implementar essa interface estará também violando o SRP, uma vez que terá mais responsabilidaes do que o necessário.
+
+**ISP em classes abstratas**
+
+```Java
+public abstract class Account {
+    abstract double getBalance();
+    abstract void processLocalPayment(double amnt);
+    abstract void processInternationalPayment(double amnt);
+}
+
+public class SchoolAccount extends Account {
+    ... 
+    void void processInternationalPayment(double amnt) {
+        // não faz nada
+    }
+}
+```
+
+No exemplo acima, um rande sintoma de violação do ISP é exatamente o fato de um método não fazer absolutamente nada. Basicamente, é feita uma implementação desnecessária.
+
+**Sintomas do ISP**
+
+* Interfaces com muitos métodos
+* Interfaces com baixa coesão
+* Clientes que retornam exceptions ao invés de implementar um método
+* Clientes que fornecem implementaçãoes vazias para métodos
+* Clientes que forçam implementações tornando-se altamente acoplados
+
+#### Refatorando o código
+
+* Se o código for proprietário é relativamente simples resolver esse problema devido a facilidade de implemntar quantas interfaces forem necessárias
+
+```Java
+//Código antigo
+public abstract class Account {
+    abstract double getBalance();
+    abstract void processLocalPayment(double amnt);
+    abstract void processInternationalPayment(double amnt);
+}
+
+//Código refatorado
+interface BaseAccount {
+    double getBalance();
+}
+
+interface LocalMoneyTransferCapability {
+    void processLocalPayment(double amnt);
+}
+
+interface InternationalMoneyTransferCapability { 
+    void processInternationalPayment(double amnt);
+}
+```
+
+* Quando se trata de código externo e legado a melhor coisa a se fazer é utilizar um padrão de projeto chamado `Adapter`
 
 
 
