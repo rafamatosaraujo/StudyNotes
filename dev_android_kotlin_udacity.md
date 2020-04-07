@@ -509,3 +509,139 @@ viewModel.number.observe(this, Observer { newNumber ->
 
 ![Arquitetura Ui Controller + ViewModel](/Images/Android_kotlin/ui_achiteure_1.5.png)
 
+***
+
+### Arquitetura  - Camada de Persistência
+
+A base de dados que faz parte do Android Jetpack é chamada de `Room`. Ele nada mais que uma camada de banco de dados acima do SQLite, com diversas funcionalidades para facilitar a comunicação com o banco de dados.
+
+![Base de dados Room](/Images/Android_kotlin/room_database.png)
+
+Links uteis sobre SQLite
+
+* [Site do SQLite](https://www.sqlite.org/index.html)
+* [Guia de SQL para SQLite](https://www.sqlite.org/lang.html)
+* [Classe SQLiteDatabase](https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase)
+
+#### Entity
+
+Uma  `entity` é um objeto a ser salvo na base de dados. A classe `Entity` defina a tabela, e cada instância dessa classe representa uma linha dessa tabela.
+
+```kotlin
+@Entity(tableName = "daily_sleep_quality_table")
+data class SleepNight(
+    @PrimaryKey(autoGenerate = true)
+    var nightId: Long = 0L,
+
+    @ColumnInfo(name = "start_time_milli")
+    val startTimeMilli: Long = System.currentTimeMillis(),
+
+    @ColumnInfo(name = "end_time_milli")
+    var endTimeMilli: Long = startTimeMilli,
+
+    @ColumnInfo(name = "quality_rating")
+    var sleepQuality: Int = -1
+)
+```
+
+#### DAO - Data Access Object
+
+Pense no DAO como uma interface customizada para acessar e intergair com a base de dados.
+
+Notaçações do DAO:
+
+* @Insert
+* @Delete
+* @Update
+
+```kotlin
+@Dao
+interface SleepDatabaseDao {
+    @Insert
+    fun insert(night: SleepNight)
+
+    @Update
+    fun update(night: SleepNight)
+
+    @Query
+    fun get(key: Long): SleepNight?
+
+    @Query("SELECT * from daily_sleep_quality_table WHERE nightId = :key")
+    fun get(key: Long): SleepNight?
+
+    @Query("DELETE FROM daily_sleep_quality_table")
+    fun clear()
+
+    @Query("SELECT * FROM daily_sleep_quality_table ORDER BY nightId DESC")
+    fun getAllNights(): LiveData<List<SleepNight>>
+
+    @Query("SELECT * FROM daily_sleep_quality_table ORDER BY nightId DESC LIMIT 1")
+    fun getTonight(): SleepNight?
+}
+```
+
+#### Criando a database Room
+
+Uma vez tendo definido a `Entity` e a `DAO` já é possível criar a base de dados. Para isso basta seguir os passos abaixo:
+
+* Crie uma classe abstrata pública que extende a class RoomDatabase
+* Anote a classe como `Database`
+* Associe a DAO
+* Pegue a referência para a base de dados
+
+```kotlin
+@Database(entities = [SleepNight::class], version = 1, exportSchema = false)
+abstract class SleepDatabase : RoomDatabase() {
+
+abstract val sleepDatabaseDao: SleepDatabaseDao
+
+companion object {
+
+    @Volatile
+    private var INSTANCE: SleepDatabase? = null
+
+    fun getInstance(context: Context): SleepDatabase {
+        synchronized(this) {
+            var instance = INSTANCE
+
+            if (instance == null) {
+                instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        SleepDatabase::class.java,
+                        "sleep_history_database"
+                )
+                        .fallbackToDestructiveMigration()
+                        .build()
+                INSTANCE = instance
+            }
+            return instance
+        }
+     }
+  }
+}
+```
+
+#### Multithread e coroutines
+
+A MainThread do Android é responsável por tudo que acontece na interface do usuário, como por exemplo acionar um click listener. Por isso, a não ser que você explicite que não deseja usar a MainThread para certa operação, ela será executada nessa thread.
+
+Isso é uma grande desafio porque para que a sua aplicação rode de uma forma agradável para o usuário, ela deve atualizar a interface do usuário a cada 16 milisegundos.
+
+Por isso é tão importante deixar a MainThread do android livre para cuidar apenas da interface do usuário, e também é por isso que ela é normalmente chamada de `UI thread`.
+
+Para resolver esse problema, pode-se fazer uso das `Coroutines`. Algumas caracterísitcas da coroutines são:
+
+* Assincronas
+* Não bloqueiam a UI thread
+* Utilizam funções suspensas para transformar código assincronos em código sequenciais (não é necessário especificar callbacks)
+
+![Funções suspensas](/Images/Android_kotlin/suspend_functions.png)
+
+Para utilizar coroutines, será necessários especificar as seguintes partes no código:
+
+* Job - Conceitualmente é qualquer coisa que pode ser cancelado
+* Dispatcher - Envia a coroutine para rodar em diferentes threads
+* Scope - Combina as informações do Job e do Dispatcher, para definir o contexto em que a coroutine irá rodar
+
+[Codelab de Coroutine](https://codelabs.developers.google.com/codelabs/kotlin-coroutines/#0)
+
