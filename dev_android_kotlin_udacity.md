@@ -645,3 +645,127 @@ Para utilizar coroutines, será necessários especificar as seguintes partes no 
 
 [Codelab de Coroutine](https://codelabs.developers.google.com/codelabs/kotlin-coroutines/#0)
 
+***
+
+### Recycle view
+
+A `RecycleView` é uma ferramenta relativamente nova do Android para renderizar listas, diferente do `ListView`.
+
+A grande diferente do RecycleView é que ele faz uso do padrão de projeto Adapter para minimzar o trabalho de renderizar uma lista. Isso torna o RecycleView mais eficiente. Por padrão, a RecycleView só vai trabalhar nos itens que estão visíveis na tela.
+
+Por exemplo: em uma lista de 100 itens, com apenas 10 visíveis na tela, o RecycleView só irá se preocupar com os 10 itens que estão visíveis. A medida que o usuário rola a tela para baixo, novos itens deverão aparecer, e o RecycleView só terá o trabalho de renderizar esses novos itens que devem aparecer, sem se preocupar com os demais.
+
+Outra grande diferença reside no fato de a RecycleView literalmente reciclar um item que foi removido da parte visível da tela, e apenas atualizá-lo com as informações do novo item, diminuindo o tempo de processamento, e consequentemente fazendo com que o seu app rode de uma forma mais fluida e limpa.
+
+#### Adapter
+
+De uma forma bem simplista, o adapter converte uma interface para poder trabalhar com outra.
+
+![Adapter e RecycleView](/Images/Android_kotlin/adapter_recycleview.png)
+
+Basicamente, converte-se o dato que precisa ser utilizado no RecycleView em algo que o RecycleView saiba como renderizar.
+
+**Interface do adapter do RecycleView**
+
+* Quantos itens existem
+* Criar novo `ViewHolder` para cada item
+* Renderizar itens 
+
+**XML do RecycleView**
+
+```xml
+<androidx.recyclerview.widget.RecyclerView
+  android:id="@+id/sleep_list"
+  android:layout_width="0dp"
+  android:layout_height="0dp"
+  app:layout_constraintBottom_toTopOf="@+id/clear_button"
+  app:layout_constraintEnd_toEndOf="parent"
+  app:layout_constraintStart_toStartOf="parent"
+  app:layout_constraintTop_toBottomOf="@+id/stop_button"
+  app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+```
+
+**Classe**
+
+```kotlin
+class SleepNightAdapter: RecyclerView.Adapter<TextItemViewHolder>()  {
+
+    var data = listOf<SleepNight>()
+        set(value) {
+            fields = value
+            notifyDataSetChanged()
+        }
+
+    override fun getItemCount() = data.size
+
+    override fun onBindViewHolder(holder: textItemViewHolder, position: Int) {
+        val item = data[position]
+        holder.textView.text = item.sleepQuality.ToString()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : textItemViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val view = layoutInflater.inflate(R.layout.text_item_view, parent, false) as TextView
+        return TextItemViewHolder(view)
+    }
+}
+```
+
+**Utilizando o RecycleView**
+
+```kotlin
+val adapter = SleepNightAdapter()
+sleep_list.adapter = adapter
+
+viewModel.nights.observe(viewLifeCycleOwner, Observe {
+    adapter.data = it
+})
+```
+
+Essa é a estrutura básica de um RecycleView.
+
+#### Melhorando a performance ao atualizar os dados
+
+Ao invés de ficar sempre utilizando o método `set` e  o `notifyDataSetChanged()`, o RecycleView tem um Helper chamado `DiffUtil` que serve para calcular atualizações na lista e minimar as alterações.
+
+```kotlin
+class SleepNightDiffCalback: DiffUtil.ItemCallback<SleepNight>() {
+    override fun areItemsTheSame(oldItem SleepNight, newItem: SleepNight): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContetntsTheSame(oldItem SleepNight, newItem: SleepNight): Boolean {
+        return oldItem == newItem
+    }
+}
+```
+
+Refatorando o código para utilizar a classe criada.
+
+```kotlin
+class SleepNightAdapter: ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback())  {
+
+    //Removido var data
+
+    //Removido getItemCount
+
+    override fun onBindViewHolder(holder: textItemViewHolder, position: Int) {
+        //Modificado val item = data[position]
+        val item = getItem(position)
+        holder.textView.text = item.sleepQuality.ToString()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : textItemViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val view = layoutInflater.inflate(R.layout.text_item_view, parent, false) as TextView
+        return TextItemViewHolder(view)
+    }
+}
+
+//Para utilizar o adapter corretamente junto com o DiffUtils
+viewModel.nights.observe(viewLifeCycleOwner, Observe {
+    //Modificado adapter.data = it
+    adapter.submitList(it)
+})
+```
+
