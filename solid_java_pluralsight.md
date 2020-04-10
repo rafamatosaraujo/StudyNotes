@@ -522,16 +522,132 @@ interface InternationalMoneyTransferCapability {
 
 * Quando se trata de código externo e legado a melhor coisa a se fazer é utilizar um padrão de projeto chamado `Adapter`
 
+***
 
+### DIP - Princípio da Inversão de Dependência
 
+1 - Módulos de alto nível não devem depender de módulos de baixo nível, ambos devem depender de abstrações;
 
+2 - Abstrações não devem depender de detalhes. Detalhes devem depender de abstrações.
 
+![DIP](/Images/SOLID_Java/dip_1.0.png)
 
+**Módulos de alto nível** : São módulos escritos para resolver problemas reais e casos de uso. São mais abstratos e estão atrelados às regras de negócio. Basicamente ditam o que o software deve fazer.
 
+**Módulos de baixo nível**: Contém as implementações necessárias para executar as regras de negócio. Ditam como o software deve fazer cada tarefa. (ex: Logging, Comunicação com a internett, IO, acesso a dados).
 
+#### Exemplo
 
+```java
+// Classe de baixo nível (acesso a dados)
 
+class SqlProductRepo {
+    public Product getById(String productId) {
+        //Buscar produto da base de dados SQL
+    }
+}
 
+// Classe de alto nível
 
+class PaymentProcessor {
+    public void pay(String productId) {
+        SqlPorductRepo repo = new SqlProductRepo();
+        Product product = repo.getById(productId);
+        this.processPayment(product);
+    }
+}
+```
 
+Percebe-se que a classe PaymentProcessor depende da classe SqlProductRepo uma vez que ela cria uma npva instancia da mesma para realizar sua tarefa, quebrando o princípio da inversão de dependência.
+
+```java
+interface ProductRepo {
+    Product getById(String productId);
+}
+
+class SqlProductRepo implements ProductRepo{
+    @Override
+    public Product getById(String productId) {
+        //Buscar produto da base de dados SQL
+    }
+}
+
+class ProductRepoFactory {
+    public static ProductRepo create(String type) {
+        //Com a factory pode-se retornar N tipos de repositórios
+        if (type.equals("mongo")) {
+            return new MongoProductRepo();
+        }
+        return new SqlProductRepo();
+    }
+}
+
+class PaymentProcessor {
+    public void pay(String productId) {
+        ProductRepo repo = ProductRepoFactory.create();
+        Product product = repo.getById(productId);
+        this.processPayment(product);
+    }
+}
+```
+
+#### Injeção de Dependência
+
+No exemplo acima, apesar de ter eliminado o acoplamento com a classe concreta do repositório, ainda existe o acoplamento com a factory. Utilizando a injeção de dependência, pode-se conseguir uma solução melhor.
+
+**Inejção de dependência**: Técnica de permite a criação de objetos que uma classe depende fora dessa classe, mas ainda sim conseguem ser acessados de dentro da classe.
+
+**Declarar dependências no construtor**
+
+```java
+class PaymentProcessor {
+    public PaymentProcessor(ProductRepo repo) {
+        this.repo = repo;
+    }
+
+    public void pay(String productId) {
+        Product product = this.repo.getById(productId);
+        this.processPayment(product);
+    }
+}
+
+//Ao criar o PaymentProcessor
+
+ProductRepo repo = ProductRepoFactory.create();
+PaymentProcessor paymentProc = new PaymentProcessor(repo);
+paymentProc.pay("123);
+```
+
+**Dependências mais complexas**
+
+![Exemplo de dependências complexas](/Images/SOLID_Java/dip_2.0.png)
+
+Em casos com esse, gerenciar as dependências é bem mais complexo.
+
+```java
+A a = new A();
+B b = new B();
+C c = new C(a);
+D d = new D(b);
+E e = new E(c,d);
+
+e.doSomething();
+```
+
+#### Inversão de controle
+
+A responsabilidade da criação, configuração e ciclo de vida de objetos é delegado a um container ou framework.
+
+* Evita-se o uso da palavra `new`
+  * Os objetos são criados por outra entidade (container ou framework)
+* O controle sobre a criação de objetos é invertido
+  * Não é mais o programador quem controla isso
+* Faz sentido usar esse princípio para alguns objetos (serviços, acesso a dados, controllers)
+  * Entidades, objetos comuns não necessitam
+
+**Benefícios**
+
+* Fácil de mudar entre diferentes implementações em tempo de execução
+* Aumenta a modularidade do projeto
+* Gerencia o ciclo de vida dos objetos e suas configurações
 
