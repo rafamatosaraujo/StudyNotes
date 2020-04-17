@@ -42,3 +42,35 @@ Porque os padrões de projeto são importantes:
 
 ***
 
+#### Adapter
+
+Motivações para utilizar o padrão Adapter:
+
+* Utilizar uma classe que não implementa a interface necessária;
+* Desenvolver uma classe, ou framework, garantindo que ele possa ser utilizado por uma grande variedade de classes / aplicações ainda não desenvolvidas.
+
+![Imagem exemplificando o padrão adapter](/Images/Design_patterns/adapter_motivation.jpeg)
+
+Objetivos do padrão adapter:
+
+* Converter a interface de uma classe em uma interface esperada por determinado cliente
+* Permitir com que classes trabalhem juntas, mesmo que possuam interfaces incompatíveis
+
+![Imagem exemplificando o padrão adapter](/Images/Design_patterns/adapter_strucutre.png)
+
+Como utilizar o padrão Adapter:
+
+* Clientes dependem da interface dos Adapter ao invés de depender da implementação concreta Adapter
+* Pelo menos uma classe concreta deve ser criada implementando a interface do adapter para que o cliente posssa utilizá-la
+* Caso haja a necessidade de utilizar novas classes concretas, cria-se essas classes implementando a interface do adapter
+
+`É uma forma efetiva de garantir o princípio Aberto / Fechado (OCP - Open Closed Principle)`
+
+Padrões de projeto relacionados ao padrão Adapter:
+
+* Repository
+* Strategy
+* Facade
+
+***
+
