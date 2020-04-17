@@ -40,3 +40,8 @@ Espero que gostem e que seja útil! :hand: :facepunch: :rocket:
 
 - Curso -> [Clique aqui](https://app.pluralsight.com/library/courses/solid-software-design-principles-java/table-of-contents)
 - Notas do Curso -> [Clique aqui](https://github.com/gifs88/StudyNotes/blob/master/solid_java_pluralsight.md)
+
+### Bibliotecas de padrões de projeto :white_check_mark: :statue_of_liberty:
+
+- Curso -> [Clique aqui](https://app.pluralsight.com/library/courses/patterns-library/table-of-contents)
+- Notas do Curso -> [Clique aqui](https://github.com/gifs88/StudyNotes/blob/master/design_patterns_lib.md)
