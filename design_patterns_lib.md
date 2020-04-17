@@ -60,7 +60,7 @@ Objetivos do padrão adapter:
 
 Como utilizar o padrão Adapter:
 
-* Clientes dependem da interface dos Adapter ao invés de depender da implementação concreta Adapter
+* Clientes dependem da interface do Adapter ao invés de depender da implementação concreta Adapter
 * Pelo menos uma classe concreta deve ser criada implementando a interface do adapter para que o cliente posssa utilizá-la
 * Caso haja a necessidade de utilizar novas classes concretas, cria-se essas classes implementando a interface do adapter
 
