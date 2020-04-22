@@ -769,3 +769,157 @@ viewModel.nights.observe(viewLifeCycleOwner, Observe {
 })
 ```
 
+***
+
+### Conectando com a internet
+
+Para facilitar o desenvolvimento de um app, pode-se fazer uso de algumas bibliotecas open sources e evitar escrever muito código. Uma das bibliotecas mais utilizadas durante o desenvolvimento de um app Android chama-se Retrofit, e é utilizada justamente para facilitar a conexão do app com a internet.
+
+Para utilizá-la, primeiro deve-se importar as dependências através do gradle.
+
+```kotlin
+implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
+implementation "com.squareup.retrofit2:converter-scalars:$version_retrofit"
+```
+
+Em seguida, no projeto, utiliza-se o método `Builder()` do retrofit para criar uma instância:
+
+```kotlin
+private const val BASE_URL = "https://mars.udacity.com/"
+
+private val retrofit = Retrofit.Builder()
+    .baseUrl(BASE_URL)
+    .build()
+```
+
+Em seguida crie uma interface para para export os métodos da API que irá criar. E por fim, crie um objeto púbico passando o serviço como parâmetro a fim de expor os serviço criado para o resto do app.
+
+```kotlin
+interface MarsApiService {
+    @GET("realestate")
+    fun getProperties(): Call<String>
+}
+
+object MarsApi {
+    val retrofitService : MarsApiService by lazy { 
+        retrofit.create(MarsApiService::class.java) 
+    }
+}
+```
+
+Essa é a base da implementação do Retrofit. Agora para utilizá-lo efetivamente faltam apenas:
+
+1 - Garantir que o app tenha acesso a internet no arquivo `manifest`
+
+```kotlin
+ <uses-permission android:name="android.permission.INTERNET" />
+```
+
+2 - Chamar a api no viewModel
+
+```kotlin
+MarsApi.retrofitService.getProperties().enqueue( object: Callback<String> {
+    override fun onFailure(call: Call<String>, t: Throwable) {
+        _response.value = "Failure: " + t.message
+    }
+
+    override fun onResponse(call: Call<String>, response: Response<String>) {
+        _response.value = response.body()
+    }
+})
+```
+
+#### Convertendo respostas em JSON
+
+Da mesma forma como existem bibliotes para facilitar a conexão com a internet, tamb[em existem bibliotecas para facilitar a conversão de respostas em JSON, e novamente facilitar a vida do desenvolvedor.
+
+Neste caso, será mostrado o exemplo da biblioteca chamada  `Moshi`.
+
+Novamente, para utilizar uma biblioteca externa se faz necessário importar suas dependências no arquivo gradle.
+
+```kotlin
+ implementation "com.squareup.moshi:moshi:$version_moshi"
+ implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
+
+ implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
+ implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
+```
+
+Seguindo o exemplo acima, de uma API chamada `MarsApi`, cria uma classe de dados em que as propriedades dessa sejam exatamente iguais a resposta em JSON recebida. Por exemplo:
+
+**JSON**
+
+
+```json
+{
+    "id": "sdf34tdsfsdf",
+    "img_src": "http://image.com",
+    "type": "jpeg",
+    "price": 25.00
+}
+```
+
+**Classe de dados representando o JSON**
+
+```kotlin
+data class MarsProperty(
+    val id: String,
+    @Json(name = "img_src")
+    val imgSrcUrl: String,
+    val type: String,
+    val price: Double
+)
+```
+
+No arquivo em criou a instância do retrofit adiicone as seguintes linhas de código para fazer a conversão:
+
+```kotlin
+//Código antigo
+//private const val BASE_URL = "https://mars.udacity.com/"
+
+//private val retrofit = Retrofit.Builder()
+//     .baseUrl(BASE_URL)
+//     .build()
+
+//Código novo
+private val moshi = Moshi.Builder()
+    .add(KotlinJsonAdapterFactory())
+    .build()
+
+private const val BASE_URL = "https://mars.udacity.com/"
+
+private val retrofit = Retrofit.Builder()
+    .baseUrl(BASE_URL)
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
+    .build()
+```
+
+Por fim, atualize o tipo de retorno da api tanto na interface `MarsApi` quanto no viewModel, para retornar o objeto mapeado `MarsProperty`.
+
+```kotlin
+interface MarsApiService {
+    @GET("realestate")
+    fun getProperties(): Call<List<MarsProperty>>
+}
+
+object MarsApi {
+    val retrofitService : MarsApiService by lazy { 
+        retrofit.create(MarsApiService::class.java) 
+    }
+}
+```
+
+```kotlin
+private fun getMarsRealEstateProperties() {
+    MarsApi.retrofitService.getProperties().enqueue( object: Callback<List<MarsProperty>> {
+        override fun onFailure(call: Call<List<MarsProperty>>, t: Throwable) {
+            _response.value = "Failure: " + t.message
+        }
+
+        override fun onResponse(call: Call<List<MarsProperty>>, response: Response<List<MarsProperty>>) {
+            _response.value = "Success: ${response.body()?.size} Marsproperties retrieved"
+        }
+    })
+}
+```
+

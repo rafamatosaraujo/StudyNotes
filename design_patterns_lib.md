@@ -74,3 +74,11 @@ Padrões de projeto relacionados ao padrão Adapter:
 
 ***
 
+#### Bridge
+
+Definição de acordo com o GOF - "*Desacoplar uma abstração de sua implementação para que ambas possam variar de forma independente.*"
+
+Em uma liguagem mais simples, ele diz que para que uma abstração e uma implementação dessa abstração possam variar de forma independente, deve-se desacoplá-las. A fim de atingir esse objetivo, cria-se mais uma camada de abstração entre estes dois itens, para trabalhar como uma ponte entre eles.
+
+![UML do padrão Bridge](/Images/Design_patterns/bridge.png)
+
