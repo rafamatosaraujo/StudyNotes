@@ -82,3 +82,18 @@ Em uma liguagem mais simples, ele diz que para que uma abstração e uma impleme
 
 ![UML do padrão Bridge](/Images/Design_patterns/bridge.png)
 
+***
+
+#### Builder
+
+Definição do GOF - *Separar a construção de um objeto complexo da sua representação para que o mesmo processo possa criar diferentes representações.*
+
+Nessa definição, a construção é uma `processo` e a representação são os `dados`. Então basicamente, pretende-se separar a lógica para trabalhar com dados diferentes.
+
+**Quando utilizar?**
+
+* Construtores com muitos parâmetros
+* A ordem dos parâmetros influência na construção do objeto
+
+
+![UML do padrão Bridge](/Images/Design_patterns/builder.png)
