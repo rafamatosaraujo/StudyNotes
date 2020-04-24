@@ -97,3 +97,27 @@ Nessa definição, a construção é uma `processo` e a representação são os 
 
 
 ![UML do padrão Bridge](/Images/Design_patterns/builder.png)
+
+**Director**
+
+* Usa o `Concrete builder`
+* Sabe como construir o objeto (lógica)
+* Código do `Client` chama o `Director` diretamente
+
+**Builder**
+
+* Classe abstrata ou interface
+* Define os passos que o `Director` vai serguir
+* Possui a instância do `Product`
+
+**Concrete builder**
+
+* Pode haver mais de um
+* Fornece a implementação da interface definida pelo `Builder`
+* É uma receita
+
+**Product**
+
+* O que está sendo consutrído
+* Não um tipo dieferente, mas um objeto com dados diferentes
+
