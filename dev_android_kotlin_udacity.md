@@ -923,3 +923,97 @@ private fun getMarsRealEstateProperties() {
 }
 ```
 
+### Performance
+
+Para deixar um aplicativo mais performático pode-se utilizar a classe `Workmanager` para executar tarefas mesmo quando o aplicativo estiver em background, ou até mesmo não estiver rodadando.
+
+Diferente da Corountines, não se diz ao Workmanager como executar determinada tarefa, mas sim sob quais circunstâncias. Por exemplo:
+
+* Quando o celular estiver carregando
+* Quando tiver Wi-fi
+* Quando o celular não estiver sendo utilizado pelo usuário,
+* etc.
+
+Definir essas circunstâncias são de suma importância para garantir que o app não consuma muita bateria do usuário.
+
+Para utilizar o work manager, primeiro importe a seguinte dependência:
+
+```kotlin
+implementation "android.arch.work:work-runtime-ktx:$version_work"
+```
+
+Em seguida, crie uma classe extendendo a classe `CoroutineWorker`. Dessa forma, garante-se que o work utilize a Coroutine para gerenciar a tarefa de forma assincrona assim como as threads utilizadas para realizá-la.
+
+```kotlin
+class RefreshDataWorker(appContext: Context, params: WorkerParameters):
+        CoroutineWorker(appContext, params) {     }
+```
+
+Por fim, basta sobrescrever o método `doWork()` para executar a tarefa desejada.
+
+```kotlin
+override suspend fun doWork() {
+    // Realizar tarefa
+}
+```
+
+Seguindo os passos acima, tem-se um WorkManager pronto para ser utilizado. Para isso dentro da aplicação pode-se seguir os seguintes passos.
+
+1 - Crie um `CoroutineScope` (O exemplo utiliza Dispatchers.Default mas pode-se utilizar a que melhor se encaixar no seu contexto):
+
+```kotlin
+val applicationScope = CoroutineScope(Dispatchers.Default)
+```
+
+2 - Crie uma função de inicialização que não bloqueie a thread prinicpal. É importante observar que o WorkManager.initialize deve ser chamado de dentro do `onCreate` sem usar um thread em segundo plano para evitar problemas causados ​​quando a inicialização ocorre depois que o WorkManager é usado.
+
+```kotlin
+private fun delayedInit() = applicationScope.launch {
+    setupRecurringWork()
+}
+```
+
+3 - Chame a função `delayedInit()` dentro do método `onCreate()`.
+
+4 - Crie a função `setupRecurringWork`, definindo uma variável que utilize a classe `PeriodicWorkRequestBuilder` a fim de criar uma `PeriodicWorkRequest` para o WorkManager.
+
+```kotlin
+private fun setupRecurringWork() {
+    val repeatingRequest = PeriodicWorkRequestBuilder<RefreshDataWorker>(1,TimeUnit.DAYS)
+        .build()
+}
+```
+
+5 - Por fim, crie uma instância do WorkManager e chame o método `enqueueUniquePeriodicWork` para agendar a tarefa.
+
+```kotlin
+WorkManager.getInstance().enqueueUniquePeriodicWork(
+    RefreshDataWorker.WORK_NAME,
+    ExistingPeriodicWorkPolicy.KEEP,
+    repeatingRequest
+)
+
+companion object {
+   const val WORK_NAME = "RefreshDataWorker"
+}
+```
+
+Até o momento criou-se o workmanager para realizar uma tarefa uma vez por dia. entretanto, faltou definir sob quais circustâncias esse workmanager vai rodar. Para definir isso, basta fazer uma pequena refatoração no método `setupRecurringWork` criado anteriomente.
+
+```kotlin
+private fun setupRecurringWork() {
+    val constraints = Constraints.Builder()
+    .setRequiredNetworkType(NetworkType.UNMETERED)
+    .setRequiresBatteryNotLow(true)
+    .setRequiresCharging(true)
+    .apply {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            setRequiresDeviceIdle(true)
+        }
+    }.build()
+
+    val repeatingRequest = PeriodicWorkRequestBuilder<RefreshDataWorker>(1,TimeUnit.DAYS)
+        .setConstraints(constraints)
+        .build()
+}
+```
