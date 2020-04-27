@@ -95,7 +95,6 @@ Nessa definição, a construção é uma `processo` e a representação são os 
 * Construtores com muitos parâmetros
 * A ordem dos parâmetros influência na construção do objeto
 
-
 ![UML do padrão Bridge](/Images/Design_patterns/builder.png)
 
 **Director**
@@ -120,4 +119,25 @@ Nessa definição, a construção é uma `processo` e a representação são os 
 
 * O que está sendo consutrído
 * Não um tipo dieferente, mas um objeto com dados diferentes
+
+***
+
+#### Chain of Responsability
+
+Chain of Responsibility é um padrão GOF cuja principal função é evitar a dependência entre um objeto receptor e um objeto solicitante. Consiste em uma série de objetos receptores e de objetos de solicitação, onde cada objeto de solicitação possui uma lógica interna que separa quais são tipos de objetos receptores podem ser manipulados. O restante é passado para o próximo objetos de solicitação da cadeia.
+
+* O solicitante só conhece o próximo receptor da cadeia
+* Cada receptor só tem conhecimento sobre o próximo recepetor da cadeia
+* Os receptores podem receber a menssagem e processá-la ou mantê-la na cadeia
+* O solicitante não sabe qual receptor irá processar a menssagem
+* O primeiro receptor a processar a menssagem finaliza a cadeia
+* A ordem dos receptores importa
+
+![UML do padrão Bridge](/Images/Design_patterns/chain_of_resp.jpg)
+
+**Quando utilizar**
+
+* Quando houver mais de uma receptor capaz de executar uma solicitação
+* O receptor adequado não é explicitamente conhecimento pelo solicitante
+* Os receptores podem ser definidos dinamicamente
 
