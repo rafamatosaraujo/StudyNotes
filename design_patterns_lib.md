@@ -95,7 +95,7 @@ Nessa definição, a construção é uma `processo` e a representação são os 
 * Construtores com muitos parâmetros
 * A ordem dos parâmetros influência na construção do objeto
 
-![UML do padrão Bridge](/Images/Design_patterns/builder.png)
+![UML do padrão Builder](/Images/Design_patterns/builder.png)
 
 **Director**
 
@@ -133,7 +133,7 @@ Chain of Responsibility é um padrão GOF cuja principal função é evitar a de
 * O primeiro receptor a processar a menssagem finaliza a cadeia
 * A ordem dos receptores importa
 
-![UML do padrão Bridge](/Images/Design_patterns/chain_of_resp.jpg)
+![UML do padrão Chain of Responisbility](/Images/Design_patterns/chain_of_resp.jpg)
 
 **Quando utilizar**
 
@@ -147,7 +147,7 @@ Chain of Responsibility é um padrão GOF cuja principal função é evitar a de
 
  O command é um padrão de projeto no qual um objeto é usado para encapsular toda informação necessária para executar uma ação ou acionar um evento em um momento posterior.
 
- ![UML do padrão Bridge](/Images/Design_patterns/command.png)
+ ![UML do padrão Command](/Images/Design_patterns/command.png)
 
  Algumas aplicabilidades desse padrão são:
  
@@ -160,3 +160,26 @@ Consequencias:
 * Cada comando deve valer por si só (o cliente não deve passar nenhum argumento)
 * Deve ser fácil de adicionar novos comandos (Princípio OCP)
 
+Quando considerar esse padrão?
+
+* Quando deseja-se desacoplar o cliente que executa um comnado da lógica e dependências desse comando
+* Aplicação de linha de comando
+* Validação
+* Desfazer
+
+***
+
+#### Composite
+
+Entende-se por Composite um padrão de projeto de software utilizado para representar um objeto formado pela composição de objetos similares. Este conjunto de objetos pressupõe uma mesma hierarquia de classes a que ele pertence. Tal padrão é, normalmente, utilizado para representar listas recorrentes - ou recursivas - de elementos. Além disso, este modo de representação hierárquica de classes permite que os elementos contidos em um objeto composto sejam tratados como se fossem um objeto único. Desta forma, os métodos comuns às classes podem ser aplicados, também, ao conjunto agrupado no objeto composto.
+
+Um exemplo prático seria a tarerfa de enviar e-mail.
+Pode-se enviar o mesmo e-mail para várias pessoas diferentes, uma a uma (sem o padrão Composite), ou pode-se criar um grupo com todas as pessoas, e enviar um e-mail para o grupo (com o padrão Composite).
+
+![UML do padrão Composite](/Images/Design_patterns/composite.png)
+
+Esse padrão pode ser usado quando há situações com:
+
+* Grupos e coleções
+* Distribuição
+* Estrutura de árvore
