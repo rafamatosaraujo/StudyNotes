@@ -31,7 +31,7 @@ Espero que gostem e que seja útil! :hand: :facepunch: :rocket:
 - Curso -> [Clique aqui](https://www.coursera.org/learn/tdd-desenvolvimento-de-software-guiado-por-testes)
 - Notas do curso -> [Clique aqui](https://github.com/gifs88/StudyNotes/blob/master/tdd_coursera.md)
 
-### Desenvolvendo aplicativos Android com Kotlin :x: :statue_of_liberty: :eight_spoked_asterisk:
+### Desenvolvendo aplicativos Android com Kotlin :white_check_mark: :statue_of_liberty: :eight_spoked_asterisk:
 
 - Curso -> [Clique aqui](https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012)
 - Notas do Curso -> [Clique aqui](https://github.com/gifs88/StudyNotes/blob/master/dev_android_kotlin_udacity.md)
