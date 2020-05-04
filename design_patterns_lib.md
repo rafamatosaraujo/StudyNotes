@@ -141,3 +141,22 @@ Chain of Responsibility é um padrão GOF cuja principal função é evitar a de
 * O receptor adequado não é explicitamente conhecimento pelo solicitante
 * Os receptores podem ser definidos dinamicamente
 
+***
+
+#### Command
+
+ O command é um padrão de projeto no qual um objeto é usado para encapsular toda informação necessária para executar uma ação ou acionar um evento em um momento posterior.
+
+ ![UML do padrão Bridge](/Images/Design_patterns/command.png)
+
+ Algumas aplicabilidades desse padrão são:
+ 
+ * Logging
+ * Validação
+ * Desfazer (Undo)
+
+Consequencias:
+
+* Cada comando deve valer por si só (o cliente não deve passar nenhum argumento)
+* Deve ser fácil de adicionar novos comandos (Princípio OCP)
+
