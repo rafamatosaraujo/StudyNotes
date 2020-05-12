@@ -206,3 +206,28 @@ Consequências de utilizar o padrão Decorator:
 * Os decorators podem ser implementados juntos, em uma forma de mix, para atender determinado requisito
 * Pode aumentar a complexidade do código
 
+***
+
+#### Event Aggregator
+
+Esse padrão busca simplificar o registro de eventos ao promover um local centralizado para armazená-los, reduzindo o acoplamento entre assinantes e classes publicadores, assim como a fricção pela introdução de novos eventos.
+
+De uma forma mais simples o Event Aggregator é um padrão de projeto que visa desacoplar as classes assinantes das classes publicadoras, resolvendo além desse problema, a temida duplicação de código.
+
+![UML do padrão Decorator](/Images/Design_patterns/event_agg.png)
+
+Quando utilizar?
+
+Esse padrão pode ser uma boa escolha quando se tem múltiplos objetos que podem ser fontes de eventos. Ao invés de ter um observer para cada um desses objetos, pode-se centralizar a lógica de registros no Event Aggregator.
+
+* Telas complexas
+* Muitos assinates e publicadores
+* Muitos eventos
+* Novos eventos adicionados com frequência
+
+Como funciona o Event Aggregator?
+
+* Cada assinante e publicador possui uma referencia do aggregator
+* Publicadores chamam métodos de publicação para notificar os assinantes
+* Assinantes chamam métodos de assinatura para receber notificações
+
