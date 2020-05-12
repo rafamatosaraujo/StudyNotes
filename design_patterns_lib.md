@@ -183,3 +183,26 @@ Esse padrão pode ser usado quando há situações com:
 * Grupos e coleções
 * Distribuição
 * Estrutura de árvore
+  
+***
+
+#### Decorator
+
+O Decorator surgiu da necessidade de adicionar um comportamento, funcionalidade ou estado extra a um objeto em tempo de execução, por exemplo quando Herança não é concebível por ser um caso que geraria um número muito alto de sub-classes.
+
+![UML do padrão Decorator](/Images/Design_patterns/decorator.png)
+
+Objetivos do padrão Decorator:
+
+* Adicionar funcionalidade a objetos existenes em tempo de execução
+* Alternativa a subclasses
+* Design flexível
+* Suportar o OCP
+
+Consequências de utilizar o padrão Decorator:
+
+* O objeto original não conhece os decorators
+* Não existe um classe gigante contendo todas as features necessárias
+* Os decorators podem ser implementados juntos, em uma forma de mix, para atender determinado requisito
+* Pode aumentar a complexidade do código
+
