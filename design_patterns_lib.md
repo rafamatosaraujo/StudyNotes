@@ -231,3 +231,23 @@ Como funciona o Event Aggregator?
 * Publicadores chamam métodos de publicação para notificar os assinantes
 * Assinantes chamam métodos de assinatura para receber notificações
 
+***
+
+#### Facade
+
+Objetivos do padrão Facade:
+
+* Fornecer uma interface simplificada para um corpo de código maior.
+* Fazer com que uma API mais complexa seja mais fácil de ser utilizada.
+* Expor um conjunto de interações complexas entre objetos atravpes de uma única interface.
+* Encapsular uma API mal projetada em uma melhor.
+
+Seu objetivo é implementar uma forma de interagir com um sistema que seja mais fácil do que a atual, com a intenção de usar um subconjunto do sistema em questão. Ou seja, busca simplificar o uso de um sistema existente a partir de uma interface própria definida.
+
+![UML do padrão Facade](/Images/Design_patterns/facade.jpg)
+
+Consequências da utilização:
+
+* Simplificar o uso de APIs existentes
+* O Facade deverá ser atualizado sempre que novas funcionalidades forem adicionadas ao sistema
+* Muitas vezes não será possível replicar 100% da capacidade das APIs através do Facade
