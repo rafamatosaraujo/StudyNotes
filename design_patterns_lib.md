@@ -251,3 +251,51 @@ Consequências da utilização:
 * Simplificar o uso de APIs existentes
 * O Facade deverá ser atualizado sempre que novas funcionalidades forem adicionadas ao sistema
 * Muitas vezes não será possível replicar 100% da capacidade das APIs através do Facade
+
+***
+
+#### Factory
+
+Motivações para o uso do padrão Factory:
+
+* Inceerteza sobre qual implementação concreta de uma interface deve ser retornada
+* Separar a criação da representação de um objeto
+* Muitos if/else para decidir qual classe concreta criar
+* Switch para definir qual classe concreta criar
+
+Objetivos do padrão Factory:
+
+* Separar a criação do objeto da decisão sobre qual objeto criar
+* Adicionar novas classes e funcionalidades sem quebrar o OCP (Open-Closed Principle)
+* Salvar qual tipo de objeto criar fora da aplicação principal
+
+**Simple Factory**
+
+* Encapsula a criação de objetos
+* Permite configurações posteriores independete da instancia criada
+* O cliente sabe qual factory concreta ele precisa
+
+![UML do padrão Simple Factory](/Images/Design_patterns/simple_factory.png)
+
+**Factory Method**
+
+Define uma interface para a criação de um objeto, mas deixa com a subclasse a decisão sobre qual class instanciar.
+
+![UML do padrão Factory Method](/Images/Design_patterns/factory_method.png)
+
+Vantagens:
+
+* Elimina referencias para classes concretas
+* Facotries podem ser herdadas para promover maior especialização na criação de objetos
+* Regras para a inicialização de objetos centralizadas
+
+Desvantagens:
+
+* Pode ser necessário criar uma factory apenas para se obter uma classe concreta
+* A hierarquia de herança pode ficar complexa
+
+**Abstract Factory**
+
+Fornece uma interface para criar uma família de objetos relacionados ou dependentes sem especificar suas classes concretas.
+
+![UML do padrão Factory Method](/Images/Design_patterns/abstract_factory.png)
