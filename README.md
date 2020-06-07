@@ -49,4 +49,4 @@ Espero que gostem e que seja útil! :hand: :facepunch: :rocket:
 ### Fundamentos de Android: Acessibilidade :x: :statue_of_liberty:
 
 - Curso -> [Clique aqui](https://app.pluralsight.com/library/courses/android-fundamentals-accessibility/table-of-contents)
-- Notas do Curso -> [Clique aqui](https://github.com/gifs88/StudyNotes/blob/master/android _accessibility.md)
+- Notas do Curso -> [Clique aqui](https://github.com/gifs88/StudyNotes/blob/master/android_accessibility.md)
