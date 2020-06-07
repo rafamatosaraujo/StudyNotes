@@ -299,3 +299,18 @@ Desvantagens:
 Fornece uma interface para criar uma família de objetos relacionados ou dependentes sem especificar suas classes concretas.
 
 ![UML do padrão Factory Method](/Images/Design_patterns/abstract_factory.png)
+
+***
+
+#### Flyweight
+
+Flyweight é um padrão de projeto de software apropriado quando vários objetos devem ser manipulados em memória sendo que muitos deles possuem informações repetidas. Dado que o recurso de memória é limitado, é possível segregar a informação repetida em um objeto adicional que atenda as características de imutabilidade e comparabilidade (que consiga ser comparado com outro objeto para determinar se ambos carregam a mesma informação).
+
+Objetivos do padrão:
+
+* Reduzir o custo de armazenamento para uma quantidade grande de objetos
+* Compartilhar objetos a serem utilizados em múltiplos contextos de forma simultanea
+* Manter a felixibilidade e granularidade da orientação a objetos
+
+![UML do padrão Flyweight](/Images/Design_patterns/flyweight.png)
+
