@@ -45,3 +45,8 @@ Espero que gostem e que seja útil! :hand: :facepunch: :rocket:
 
 - Curso -> [Clique aqui](https://app.pluralsight.com/library/courses/patterns-library/table-of-contents)
 - Notas do Curso -> [Clique aqui](https://github.com/gifs88/StudyNotes/blob/master/design_patterns_lib.md)
+
+### Fundamentos de Android: Acessibilidade :x: :statue_of_liberty:
+
+- Curso -> [Clique aqui](https://app.pluralsight.com/library/courses/android-fundamentals-accessibility/table-of-contents)
+- Notas do Curso -> [Clique aqui](https://github.com/gifs88/StudyNotes/blob/master/android _accessibility.md)
