@@ -314,3 +314,31 @@ Objetivos do padrão:
 
 ![UML do padrão Flyweight](/Images/Design_patterns/flyweight.png)
 
+***
+
+#### Interpreter
+
+Dada uma determinada linguagem, o padrão Interpreter define uma representação para sua gramática juntamente com um interpretador que usa a representação para interpretar sentenças na língua.
+
+Exemplo: `Código de barras` - O código de barras possui algumas regras e é necessário um interpretador para ler e interpretar as sentençãos da linguagem.
+
+![UML do padrão Interpreter](/Images/Design_patterns/interpreter.png)
+
+De certa forma, o padrão Interpreter nada mais é do que a utilização do padrão Composite para criar um interpretador.
+
+***
+
+#### Iterator
+
+Motivações para utilizar o padrão Iterator
+
+* Trabalhar com collections de vários tipos diferentes
+* Ser capaz de trafegar por vários tipos de collections sem se preocupar com suas estruturas internas
+* Evitar inflar cada interface de collection com operações transversais
+* Uma forma de acesar os membros de uma collection sem violar o SRP.
+
+![UML do padrão Iterator](/Images/Design_patterns/interator.png)
+
+O Padrão Iterator encapsula as implementações das iterações, a partir de agora não precisamos mais ver que tipo de coleção está sendo utilizada pelos objetos como um ArrayList ou um HashTable. Com a utilização do Padrão Iterator precisamos apenas de um loop para lidarmos polimorficamente com qualquer coleção de itens desde que ela apenas implemente o Iterator. Anteriormente também estávamos com o código vinculado a classes como ArrayList, agora usamos apenas uma interface (Iterator), lembre-se de programar sempre para interfaces.
+
+[Link interessante sobre o padrão Iterator](https://www.devmedia.com.br/padrao-de-projeto-iterator-em-java/26733)
