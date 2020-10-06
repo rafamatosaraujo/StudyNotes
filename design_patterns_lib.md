@@ -342,3 +342,73 @@ Motivações para utilizar o padrão Iterator
 O Padrão Iterator encapsula as implementações das iterações, a partir de agora não precisamos mais ver que tipo de coleção está sendo utilizada pelos objetos como um ArrayList ou um HashTable. Com a utilização do Padrão Iterator precisamos apenas de um loop para lidarmos polimorficamente com qualquer coleção de itens desde que ela apenas implemente o Iterator. Anteriormente também estávamos com o código vinculado a classes como ArrayList, agora usamos apenas uma interface (Iterator), lembre-se de programar sempre para interfaces.
 
 [Link interessante sobre o padrão Iterator](https://www.devmedia.com.br/padrao-de-projeto-iterator-em-java/26733)
+
+***
+
+#### Lazy load
+
+É para adiar a inicialização de um objeto até o ponto em que ele é necessário. Isso pode contribuir para a eficiência no funcionamento de um programa, se utilizado adequadamente.
+
+O padrão pausa o processo de carregamento de um objeto momentaneamente, deixando um marcador na estrutura do objeto. E quando mais informações são necessárias, elas são carregadas.
+
+Esse padrão deve ser usado com cuidado, apenas quando o preenchimento de um objeto precisa de uma chamada extra para os obter os dados, e esses dados não são utilizados no mesmo local em que objeto principal é utilizado.
+
+Além disso, utiliza-se esse padrão quando é necessário balancear a quantidade de dados sendo carregada com a quantidade de requisições sendo feita.
+
+O padrão Lazy Load possui algumas variantes:
+
+- `Lazy Initialization`
+
+```Java
+private int myWidgetID;
+private Widget myWidget = null;
+ 
+public Widget MyWidget 
+{
+    get 
+    {
+        if (myWidget == null) 
+        {
+            myWidget = Widget.Load(myWidgetID);
+        }
+        
+        return myWidget;
+    }
+}
+```
+
+- `Virtual proxy`
+
+![UML do padrão Virtual Proxy](/Images/Design_patterns/virtual_proxy.png)
+
+Trabalhar com essa variante tem alguns problemas, como: é necessário gerenciar a identidade dos objetos, uma vez que trabalhamos com um objeto de proxy e um concreto. Além disso pe necessário criar um Virtual Proxy para cada classe que depende desse padrão.
+
+- `value holder`
+
+A principal característia dessa variante é que ela fornece a funcionalidade de Lazy Load sem a necesidae de encapsulamento. Por outro lado, para utilizar essa variante é necessário criar vários tipos diferentes:
+
+```Java
+public class ValueHolder<T> {
+    private T value;
+    private readonly Func<object, T> valueRetrieval;
+ 
+    // Constructor
+    public ValueHolder(Func<object, T> valueRetrieval)
+    {
+        valueRetrieval = this.valueRetrieval;
+    }
+ 
+    // We'll use the signature "GetValue" for convention
+    public T GetValue(object parameter)
+    {
+        if (value == null)
+            value = valueRetrieval(parameter);
+        return value;
+    }
+}
+```
+
+- `ghost`
+
+O ghost é um objeto real, mas em um estado parcial. Inicialmente, a única coisa que esse objeto conhece é seu Id. Quando qualquer outra propriedade é acessada, o ghost carrega todas as outras informações.
+
